@@ -102,19 +102,19 @@ The game is played entirely with keyboard controls, with Player 1 using WASD + E
 
 ### Game States
 
-![Game State Diagram](./assets/images/GameStateDiagram.png)
+![Game State Diagram](./assets/images/diagrams/GameStateDiagram.png)
 
 ### Player Entity States
 
-![Player Entity State Diagram](./assets/images/PlayerStateDiagram.png)
+![Player Entity State Diagram](./assets/images/diagrams/PlayerStateDiagram.png)
 
 ## 🗺️ Class Diagram
 
-![Class Diagram](./assets/images/ClassDiagram.png)
+![Class Diagram](./assets/images/diagrams/ClassDiagram.png)
 
 ## 🧵 Wireframes
 
-![Wireframes](./assets/images/Wireframes.png)
+![Wireframes](./assets/images/diagrams/Wireframes.png)
 
 ### Title Screen
 

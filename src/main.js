@@ -1,45 +1,50 @@
 /**
- * Game Name
+ * Dragon Ball Fighting Game
  *
- * Authors
+ * Nikolaos Sarris
  *
- * Brief description
+ * A 2-player fighting game inspired by Dragon Ball Z where two legendary saiyans
+ * face off in an epic battle. Players use melee attacks, special moves, and
+ * defensive blocking to defeat their opponent.
  *
- * Asset sources
+ * Asset sources:
+ * - Sprites: spriters-resource.com
+ * - Sounds: freesound.org, opengameart.org
+ * - Font: Google Fonts (Press Start 2P)
  */
 
-import GameStateName from './enums/GameStateName.js';
-import Game from '../lib/Game.js';
+import Game from "../lib/Game.js";
 import {
-	canvas,
-	CANVAS_HEIGHT,
-	CANVAS_WIDTH,
-	context,
-	fonts,
-	images,
-	timer,
-	sounds,
-	stateMachine,
-} from './globals.js';
-import PlayState from './states/PlayState.js';
-import GameOverState from './states/GameOverState.js';
-import VictoryState from './states/VictoryState.js';
-import TitleScreenState from './states/TitleScreenState.js';
+    canvas,
+    CANVAS_HEIGHT,
+    CANVAS_WIDTH,
+    context,
+    fonts,
+    images,
+    timer,
+    sounds,
+    stateMachine,
+} from "./globals.js";
+import TitleScreenState from "./states/game/TitleScreenState.js";
+import ControlsScreenState from "./states/game/ControlsScreenState.js";
+import PlayState from "./states/game/PlayState.js";
+import VictoryState from "./states/game/VictoryState.js";
+import GameStateName from "./enums/GameStateName.js";
 
 // Set the dimensions of the play area.
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
-canvas.setAttribute('tabindex', '1'); // Allows the canvas to receive user input.
+canvas.setAttribute("tabindex", "1"); // Allows the canvas to receive user input.
 
 // Now that the canvas element has been prepared, we can add it to the DOM.
 document.body.appendChild(canvas);
 
-// Fetch the asset definitions from config.json.
+// Fetch the asset definitions from config/assets.json.
 const {
-	images: imageDefinitions,
-	fonts: fontDefinitions,
-	sounds: soundDefinitions,
-} = await fetch('./src/config.json').then((response) => response.json());
+    images: imageDefinitions,
+    fonts: fontDefinitions,
+    sounds: soundDefinitions,
+} = await fetch("./config/assets.json").then((response) => response.json());
 
 // Load all the assets from their definitions.
 images.load(imageDefinitions);
@@ -48,18 +53,19 @@ sounds.load(soundDefinitions);
 
 // Add all the states to the state machine.
 stateMachine.add(GameStateName.TitleScreen, new TitleScreenState());
-stateMachine.add(GameStateName.GameOver, new GameOverState());
-stateMachine.add(GameStateName.Victory, new VictoryState());
+stateMachine.add(GameStateName.ControlsScreen, new ControlsScreenState());
 stateMachine.add(GameStateName.Play, new PlayState());
+stateMachine.add(GameStateName.Victory, new VictoryState());
 
-stateMachine.change(GameStateName.Play);
+// Start at title screen
+stateMachine.change(GameStateName.TitleScreen);
 
 const game = new Game(
-	stateMachine,
-	context,
-	timer,
-	canvas.width,
-	canvas.height
+    stateMachine,
+    context,
+    timer,
+    canvas.width,
+    canvas.height
 );
 
 game.start();
