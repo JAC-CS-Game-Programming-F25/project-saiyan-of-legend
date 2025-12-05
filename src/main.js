@@ -19,10 +19,7 @@ import {
     CANVAS_HEIGHT,
     CANVAS_WIDTH,
     context,
-    fonts,
-    images,
     timer,
-    sounds,
     stateMachine,
 } from "./globals.js";
 import TitleScreenState from "./states/game/TitleScreenState.js";
@@ -37,28 +34,19 @@ canvas.height = CANVAS_HEIGHT;
 canvas.setAttribute("tabindex", "1"); // Allows the canvas to receive user input.
 
 // Now that the canvas element has been prepared, we can add it to the DOM.
-document.body.appendChild(canvas);
+document.body.append(canvas);
 
-// Fetch the asset definitions from config/assets.json.
-const {
-    images: imageDefinitions,
-    fonts: fontDefinitions,
-    sounds: soundDefinitions,
-} = await fetch("./config/assets.json").then((response) => response.json());
+const mapDefinition = await fetch("./config/tilemap.json").then((response) =>
+    response.json()
+);
 
-// Load all the assets from their definitions.
-images.load(imageDefinitions);
-fonts.load(fontDefinitions);
-sounds.load(soundDefinitions);
-
-// Add all the states to the state machine.
+//Adds all the states to the state machine.
 stateMachine.add(GameStateName.TitleScreen, new TitleScreenState());
 stateMachine.add(GameStateName.ControlsScreen, new ControlsScreenState());
-stateMachine.add(GameStateName.Play, new PlayState());
+stateMachine.add(GameStateName.Play, new PlayState(mapDefinition));
 stateMachine.add(GameStateName.Victory, new VictoryState());
 
-// Start at title screen
-stateMachine.change(GameStateName.TitleScreen);
+stateMachine.change(GameStateName.Play);
 
 const game = new Game(
     stateMachine,

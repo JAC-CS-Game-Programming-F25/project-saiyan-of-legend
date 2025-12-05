@@ -1,8 +1,8 @@
 const ImageName = {
     Tiles: "tiles",
+    Background: "background",
     Goku: "goku",
     Vegeta: "vegeta",
-    Background: "background",
 };
 
 export default ImageName;

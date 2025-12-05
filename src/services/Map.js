@@ -48,10 +48,8 @@ export default class Map {
 
     /**
      * Renders the map and all its entities.
-     *
-     * @param {CanvasRenderingContext2D} context - The rendering context.
      */
-    render(context) {
+    render() {
         this.foregroundLayer.render();
     }
 
