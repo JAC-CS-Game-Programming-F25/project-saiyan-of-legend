@@ -1,5 +1,12 @@
 {
-    "images": [],
+    "images": [
+        {
+            "name": "tiles",
+            "path": "./assets/images/tiles.png",
+            "width": 160,
+            "height": 80
+        }
+    ],
     "fonts": [],
     "sounds": []
 }
