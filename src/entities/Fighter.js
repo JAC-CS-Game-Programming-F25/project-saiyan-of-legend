@@ -4,8 +4,10 @@ import StateMachine from "../../lib/StateMachine.js";
 import Animation from "../../lib/Animation.js";
 import { images } from "../globals.js";
 import ImageName from "../enums/ImageName.js";
+import FighterStateName from "../enums/FighterStateName.js";
 import Entity from "./Entity.js";
 import Vector from "../../lib/Vector.js";
+import FighterIdlingState from "../states/fighter/FighterIdlingState.js";
 
 export default class Fighter extends Entity {
     /**
@@ -41,6 +43,12 @@ export default class Fighter extends Entity {
 
         //Initialize state machine for fighter behavior
         this.stateMachine = new StateMachine();
+
+        //Add states to the state machine
+        this.stateMachine.add(
+            FighterStateName.Idling,
+            new FighterIdlingState(this)
+        );
     }
 
     /**
