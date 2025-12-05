@@ -1,4 +1,5 @@
 import State from "../../../lib/State.js";
+import Fighter from "../../entities/Fighter.js";
 import ImageName from "../../enums/ImageName.js";
 import { canvas, images, timer } from "../../globals.js";
 import Map from "../../services/Map.js";
@@ -20,6 +21,9 @@ export default class PlayState extends State {
         //The game map
         this.map = new Map(mapDefinition);
 
+        //The fighter
+        this.fighter = new Fighter(50, 174, 32, 82, this.map);
+
         //Loads background image
         this.backgroundImage = images.get(ImageName.Background);
     }
@@ -32,13 +36,17 @@ export default class PlayState extends State {
     update(dt) {
         timer.update(dt);
         this.map.update(dt);
+        this.fighter.update(dt);
     }
 
     /**
      * Renders the play state.
+     *
+     * @param {CanvasRenderingContext2D} context - The rendering context.
      */
-    render() {
+    render(context) {
         this.backgroundImage.render(0, 0, canvas.width, canvas.height);
-        this.map.render();
+        this.map.render(context);
+        this.fighter.render(context);
     }
 }

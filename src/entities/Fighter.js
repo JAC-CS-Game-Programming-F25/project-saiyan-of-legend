@@ -1,5 +1,8 @@
-import { gokuSpriteConfig } from "../../config/SpriteConfig.js";
-import Map from "../../services/Map.js";
+import {
+    gokuSpriteConfig,
+    loadFighterSprites,
+} from "../../config/SpriteConfig.js";
+import Map from "../services/Map.js";
 import StateMachine from "../../lib/StateMachine.js";
 import Animation from "../../lib/Animation.js";
 import { images } from "../globals.js";
@@ -30,7 +33,7 @@ export default class Fighter extends Entity {
         this.facingRight = true;
 
         //Loads the goku sprites
-        this.sprites = loadPlayerSprites(
+        this.sprites = loadFighterSprites(
             images.get(ImageName.Goku),
             gokuSpriteConfig
         );

@@ -19,7 +19,6 @@ import {
     CANVAS_HEIGHT,
     CANVAS_WIDTH,
     context,
-    timer,
     stateMachine,
 } from "./globals.js";
 import TitleScreenState from "./states/game/TitleScreenState.js";
@@ -34,7 +33,7 @@ canvas.height = CANVAS_HEIGHT;
 canvas.setAttribute("tabindex", "1"); // Allows the canvas to receive user input.
 
 // Now that the canvas element has been prepared, we can add it to the DOM.
-document.body.append(canvas);
+document.body.prepend(canvas);
 
 const mapDefinition = await fetch("./config/tilemap.json").then((response) =>
     response.json()
@@ -48,13 +47,7 @@ stateMachine.add(GameStateName.Victory, new VictoryState());
 
 stateMachine.change(GameStateName.Play);
 
-const game = new Game(
-    stateMachine,
-    context,
-    timer,
-    canvas.width,
-    canvas.height
-);
+const game = new Game(stateMachine, context, canvas.width, canvas.height);
 
 game.start();
 

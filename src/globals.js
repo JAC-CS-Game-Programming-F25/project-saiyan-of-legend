@@ -30,11 +30,11 @@ window.addEventListener("resize", resizeCanvas);
 
 resizeCanvas(); // Call once to scale initially
 
+export const input = new Input(canvas);
 export const images = new Images(context);
 export const fonts = new Fonts();
 export const stateMachine = new StateMachine();
 export const timer = new Timer();
-export const input = new Input(canvas);
 export const sounds = new Sounds();
 
 sounds.load(assetDefinition.sounds);

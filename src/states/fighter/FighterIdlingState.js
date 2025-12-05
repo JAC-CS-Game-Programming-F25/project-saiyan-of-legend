@@ -1,6 +1,7 @@
 import Fighter from "../../entities/Fighter.js";
+import FighterState from "./FighterState.js";
 
-export default class FighterIdlingState extends Fighter {
+export default class FighterIdlingState extends FighterState {
     /**
      * Creates a new FighterIdlingState instance.
      * @param {Fighter} fighter - The fighter object.
