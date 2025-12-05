@@ -1,5 +1,18 @@
 {
-    "images": [],
+    "images": [
+        {
+            "name": "tiles",
+            "path": "../assets/images/game/tiles.png",
+            "width": 160,
+            "height": 80
+        },
+        {
+            "name": "background",
+            "path": "./assets/images/game/background.png",
+            "width": 1920,
+            "height": 1080
+        }
+    ],
     "fonts": [],
     "sounds": []
 }
