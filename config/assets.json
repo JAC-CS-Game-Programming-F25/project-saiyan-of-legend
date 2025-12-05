@@ -11,6 +11,12 @@
             "path": "./assets/images/game/background.png",
             "width": 1920,
             "height": 1080
+        },
+        {
+            "name": "goku",
+            "path": "./assets/images/game/goku.png",
+            "width": 560,
+            "height": 1568
         }
     ],
     "fonts": [],
