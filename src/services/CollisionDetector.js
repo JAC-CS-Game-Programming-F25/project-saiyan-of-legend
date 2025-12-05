@@ -1,9 +1,6 @@
 import Entity from "../entities/Entity.js";
 import Map from "./Map.js";
 
-/**
- * Handles collision detection for entities in the game world.
- */
 export default class CollisionDetector {
     /**
      * Creates a new CollisionDetector.
