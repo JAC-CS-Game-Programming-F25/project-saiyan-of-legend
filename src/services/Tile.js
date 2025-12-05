@@ -1,8 +1,5 @@
 import Sprite from "../../lib/Sprite.js";
 
-/**
- * Represents a single tile in the game world.
- */
 export default class Tile {
     /**
      * The size of a tile in pixels.
@@ -12,6 +9,7 @@ export default class Tile {
 
     /**
      * Creates a new Tile instance.
+     *
      * @param {number} id - The ID of the tile, corresponding to its sprite in the spritesheet.
      * @param {Sprite[]} sprites - An array of Sprite objects representing all possible tile sprites.
      */
@@ -22,6 +20,7 @@ export default class Tile {
 
     /**
      * Renders the tile at the specified grid coordinates.
+     *
      * @param {number} x - The x-coordinate in the tile grid.
      * @param {number} y - The y-coordinate in the tile grid.
      */
