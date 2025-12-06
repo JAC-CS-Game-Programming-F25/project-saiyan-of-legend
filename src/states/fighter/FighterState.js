@@ -1,7 +1,7 @@
 import Input from "../../../lib/Input.js";
 import State from "../../../lib/State.js";
 import { FighterConfig } from "../../../config/FighterConfig.js";
-import { input } from "../../globals.js";
+import { DEBUG, input } from "../../globals.js";
 import Tile from "../../services/Tile.js";
 import CollisionDetector from "../../services/CollisionDetector.js";
 
@@ -61,6 +61,64 @@ export default class FighterState extends State {
         this.fighter.currentAnimation.getCurrentFrame().render(0, 0);
 
         context.restore();
+
+        if (DEBUG) {
+            this.renderDebug(context);
+        }
+    }
+
+    /**
+     * Renders debug information for the fighter and surrounding tiles.
+     *
+     * @param {CanvasRenderingContext2D} context - The rendering context.
+     */
+    renderDebug(context) {
+        //Calculates the tile coordinates of the area around the fighter
+        const left = Math.floor(this.fighter.position.x / Tile.SIZE) - 1;
+        const top = Math.floor(this.fighter.position.y / Tile.SIZE) - 1;
+        const right =
+            Math.floor(
+                (this.fighter.position.x + this.fighter.dimensions.x) /
+                    Tile.SIZE
+            ) + 1;
+        const bottom =
+            Math.floor(
+                (this.fighter.position.y + this.fighter.dimensions.y - 1) /
+                    Tile.SIZE
+            ) + 1;
+
+        //Renders a semi-transparent yellow rectangle for each tile in the calculated area
+        context.fillStyle = "rgba(255, 255, 0, 0.3)";
+        for (let y = top; y <= bottom; y++) {
+            for (let x = left; x <= right; x++) {
+                context.fillRect(
+                    x * Tile.SIZE,
+                    y * Tile.SIZE,
+                    Tile.SIZE,
+                    Tile.SIZE
+                );
+            }
+        }
+
+        //Renders semi-transparent red rectangles for tiles that the fighter is colliding with
+        context.fillStyle = "rgba(255, 0, 0, 0.5)";
+        this.getCollidingTiles(left, top, right, bottom).forEach((tile) => {
+            context.fillRect(
+                tile.x * Tile.SIZE,
+                tile.y * Tile.SIZE,
+                Tile.SIZE,
+                Tile.SIZE
+            );
+        });
+
+        //Renders a blue outline around the fighter's bounding box
+        context.strokeStyle = "blue";
+        context.strokeRect(
+            this.fighter.position.x,
+            this.fighter.position.y,
+            this.fighter.dimensions.x,
+            this.fighter.dimensions.y
+        );
     }
 
     /**
