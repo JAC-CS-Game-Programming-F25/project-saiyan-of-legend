@@ -1,4 +1,7 @@
+import Input from "../../../lib/Input.js";
 import Fighter from "../../entities/Fighter.js";
+import FighterStateName from "../../enums/FighterStateName.js";
+import { input } from "../../globals.js";
 import FighterState from "./FighterState.js";
 
 export default class FighterIdlingState extends FighterState {
@@ -26,5 +29,16 @@ export default class FighterIdlingState extends FighterState {
      */
     update(dt) {
         super.update(dt);
+        this.handleInput();
+    }
+
+    /**
+     * Handles player input.
+     */
+    handleInput() {
+        //If the player is pressing A or D, not both, change to the walking state
+        if (input.isKeyHeld(Input.KEYS.A) !== input.isKeyHeld(Input.KEYS.D)) {
+            this.fighter.stateMachine.change(FighterStateName.Walking);
+        }
     }
 }
