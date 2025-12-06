@@ -51,6 +51,10 @@ export default class FighterWalkingState extends FighterState {
         } else {
             this.isMovingRight = false;
         }
+
+        if (input.isKeyPressed(Input.KEYS.SPACE)) {
+            this.fighter.stateMachine.change(FighterStateName.Jumping);
+        }
     }
 
     /**
@@ -59,6 +63,14 @@ export default class FighterWalkingState extends FighterState {
     checkTransitions() {
         if (this.shouldIdle()) {
             this.fighter.stateMachine.change(FighterStateName.Idling);
+        }
+
+        if (!this.fighter.isOnGround) {
+            if (this.fighter.velocity.y < 0) {
+                this.fighter.stateMachine.change(FighterStateName.Jumping);
+            } else {
+                this.fighter.stateMachine.change(FighterStateName.Falling);
+            }
         }
     }
 

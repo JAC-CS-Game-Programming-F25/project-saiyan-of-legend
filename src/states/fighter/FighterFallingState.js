@@ -1,0 +1,46 @@
+import Fighter from "../../entities/Fighter.js";
+import FighterStateName from "../../enums/FighterStateName.js";
+import FighterState from "./FighterState.js";
+
+export default class FighterFallingState extends FighterState {
+    /**
+     * Creates a new FighterFallingState instance.
+     * @param {Fighter} fighter - The fighter object.
+     */
+    constructor(fighter) {
+        super(fighter);
+    }
+
+    /**
+     * Called when entering the falling state.
+     */
+    enter() {
+        this.fighter.currentAnimation = this.fighter.animations.fall;
+        this.fighter.currentAnimation.refresh();
+    }
+
+    /**
+     * Updates the falling state.
+     *
+     * @param {number} dt - The time passed since the last update.
+     */
+    update(dt) {
+        super.update(dt);
+
+        this.handleHorizontalMovement();
+        this.checkTransitions();
+    }
+
+    /**
+     * Checks for state transitions.
+     */
+    checkTransitions() {
+        if (this.fighter.isOnGround) {
+            if (Math.abs(this.fighter.velocity.x) < 0.1) {
+                this.fighter.stateMachine.change(FighterStateName.Idling);
+            } else {
+                this.fighter.stateMachine.change(FighterStateName.Walking);
+            }
+        }
+    }
+}

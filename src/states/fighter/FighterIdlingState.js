@@ -7,6 +7,7 @@ import FighterState from "./FighterState.js";
 export default class FighterIdlingState extends FighterState {
     /**
      * Creates a new FighterIdlingState instance.
+     *
      * @param {Fighter} fighter - The fighter object.
      */
     constructor(fighter) {
@@ -33,9 +34,13 @@ export default class FighterIdlingState extends FighterState {
     }
 
     /**
-     * Handles player input.
+     * Handles fighter input.
      */
     handleInput() {
+        //If the fighter is pressing space, change to the jumping state
+        if (input.isKeyPressed(Input.KEYS.SPACE)) {
+            this.fighter.stateMachine.change(FighterStateName.Jumping);
+        }
         //If the player is pressing A or D, not both, change to the walking state
         if (input.isKeyHeld(Input.KEYS.A) !== input.isKeyHeld(Input.KEYS.D)) {
             this.fighter.stateMachine.change(FighterStateName.Walking);
