@@ -11,6 +11,9 @@ import FighterStateName from "../enums/FighterStateName.js";
 import Entity from "./Entity.js";
 import Vector from "../../lib/Vector.js";
 import FighterIdlingState from "../states/fighter/FighterIdlingState.js";
+import FighterWalkingState from "../states/fighter/FighterWalkingState.js";
+import FighterJumpingState from "../states/fighter/FighterJumpingState.js";
+import FighterFallingState from "../states/fighter/FighterFallingState.js";
 
 export default class Fighter extends Entity {
     /**
@@ -49,6 +52,18 @@ export default class Fighter extends Entity {
 
         //Add states to the state machine
         this.stateMachine.add(
+            FighterStateName.Falling,
+            new FighterFallingState(this)
+        );
+        this.stateMachine.add(
+            FighterStateName.Jumping,
+            new FighterJumpingState(this)
+        );
+        this.stateMachine.add(
+            FighterStateName.Walking,
+            new FighterWalkingState(this)
+        );
+        this.stateMachine.add(
             FighterStateName.Idling,
             new FighterIdlingState(this)
         );
@@ -61,6 +76,9 @@ export default class Fighter extends Entity {
         //Creates animations for different fighter states
         this.animations = {
             idle: new Animation(this.sprites.idle),
+            walk: new Animation(this.sprites.walk, 0.5, 1),
+            jump: new Animation(this.sprites.jump, 0.15, 1),
+            fall: new Animation(this.sprites.fall, 0.5, 1),
         };
     }
 
