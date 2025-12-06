@@ -22,7 +22,7 @@ export default class PlayState extends State {
         this.map = new Map(mapDefinition);
 
         //The fighter
-        this.fighter = new Fighter(50, 174, 32, 82, this.map);
+        this.fighter = new Fighter(50, 174, 32, 52, this.map);
 
         //Loads background image
         this.backgroundImage = images.get(ImageName.Background);

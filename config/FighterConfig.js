@@ -3,6 +3,6 @@ export const FighterConfig = {
     acceleration: 5,
     deceleration: 5,
     jumpPower: -300,
-    gravity: 300,
-    maxFallSpeed: 2000,
+    gravity: 400,
+    maxFallSpeed: 400,
 };

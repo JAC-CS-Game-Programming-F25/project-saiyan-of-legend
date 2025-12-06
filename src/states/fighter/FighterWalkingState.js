@@ -22,6 +22,8 @@ export default class FighterWalkingState extends FighterState {
         this.fighter.isOnGround = true;
         this.fighter.currentAnimation = this.fighter.animations.walk;
         this.fighter.currentAnimation.refresh();
+
+        this.fighter.dimensions.x = 47;
     }
 
     /**

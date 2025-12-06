@@ -21,6 +21,9 @@ export default class FighterIdlingState extends FighterState {
         this.fighter.velocity.x = 0;
         this.fighter.velocity.y = 0;
         this.fighter.currentAnimation = this.fighter.animations.idle;
+
+        this.fighter.dimensions.x = 31;
+        this.fighter.dimensions.y = 52;
     }
 
     /**

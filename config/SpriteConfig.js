@@ -1,7 +1,7 @@
 import Sprite from "../lib/Sprite.js";
 
 export const gokuSpriteConfig = {
-    idle: [{ x: 212, y: 100, width: 34, height: 90 }],
+    idle: [{ x: 212, y: 130, width: 31, height: 52 }],
     walk: [
         { x: 185, y: 212, width: 38, height: 43 },
         { x: 248, y: 218, width: 47, height: 37 },
