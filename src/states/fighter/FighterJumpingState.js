@@ -48,6 +48,11 @@ export default class FighterJumpingState extends FighterState {
         if (!input.isKeyHeld(Input.KEYS.SPACE) && this.fighter.velocity.y < 0) {
             this.fighter.velocity.y *= 0.5;
         }
+
+        //If the player is pressing E, change to the attacking state
+        if (input.isKeyPressed(Input.KEYS.E)) {
+            this.fighter.stateMachine.change(FighterStateName.Attacking);
+        }
     }
 
     /**

@@ -1,5 +1,7 @@
+import Input from "../../../lib/Input.js";
 import Fighter from "../../entities/Fighter.js";
 import FighterStateName from "../../enums/FighterStateName.js";
+import { input } from "../../globals.js";
 import FighterState from "./FighterState.js";
 
 export default class FighterFallingState extends FighterState {
@@ -28,6 +30,7 @@ export default class FighterFallingState extends FighterState {
         super.update(dt);
 
         this.handleHorizontalMovement();
+        this.handleInput();
         this.checkTransitions();
     }
 
@@ -41,6 +44,13 @@ export default class FighterFallingState extends FighterState {
             } else {
                 this.fighter.stateMachine.change(FighterStateName.Walking);
             }
+        }
+    }
+
+    handleInput() {
+        //If the player is pressing E, change to the attacking state
+        if (input.isKeyPressed(Input.KEYS.E)) {
+            this.fighter.stateMachine.change(FighterStateName.Attacking);
         }
     }
 }

@@ -14,6 +14,7 @@ import FighterIdlingState from "../states/fighter/FighterIdlingState.js";
 import FighterWalkingState from "../states/fighter/FighterWalkingState.js";
 import FighterJumpingState from "../states/fighter/FighterJumpingState.js";
 import FighterFallingState from "../states/fighter/FighterFallingState.js";
+import FighterAttackingState from "../states/fighter/FighterAttackingState.js";
 
 export default class Fighter extends Entity {
     /**
@@ -64,6 +65,10 @@ export default class Fighter extends Entity {
             new FighterWalkingState(this)
         );
         this.stateMachine.add(
+            FighterStateName.Attacking,
+            new FighterAttackingState(this)
+        );
+        this.stateMachine.add(
             FighterStateName.Idling,
             new FighterIdlingState(this)
         );
@@ -79,6 +84,7 @@ export default class Fighter extends Entity {
             walk: new Animation(this.sprites.walk, 0.5, 1),
             jump: new Animation(this.sprites.jump, 0.15, 1),
             fall: new Animation(this.sprites.fall, 0.5, 1),
+            attack: new Animation(this.sprites.attack, 0.1, 1),
         };
     }
 
