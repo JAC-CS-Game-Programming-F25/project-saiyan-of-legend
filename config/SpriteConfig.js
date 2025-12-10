@@ -15,6 +15,13 @@ export const gokuSpriteConfig = {
         { x: 203, y: 279, width: 32, height: 60 },
         { x: 245, y: 276, width: 32, height: 60 },
     ],
+    attack: [
+        { x: 217, y: 445, width: 39, height: 48 },
+        { x: 265, y: 445, width: 43, height: 48 },
+        { x: 217, y: 445, width: 39, height: 48 },
+        { x: 165, y: 446, width: 46, height: 47 },
+        {},
+    ],
 };
 
 export function loadFighterSprites(spriteSheet, spriteConfig) {

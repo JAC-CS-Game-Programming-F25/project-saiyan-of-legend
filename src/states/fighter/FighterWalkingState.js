@@ -47,15 +47,16 @@ export default class FighterWalkingState extends FighterState {
         } else {
             this.isMovingLeft = false;
         }
-
         if (input.isKeyHeld(Input.KEYS.D) && !this.isMovingLeft) {
             this.isMovingRight = true;
         } else {
             this.isMovingRight = false;
         }
-
         if (input.isKeyPressed(Input.KEYS.SPACE)) {
             this.fighter.stateMachine.change(FighterStateName.Jumping);
+        }
+        if (input.isKeyPressed(Input.KEYS.E)) {
+            this.fighter.stateMachine.change(FighterStateName.Attacking);
         }
     }
 

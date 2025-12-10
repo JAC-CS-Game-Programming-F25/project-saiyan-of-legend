@@ -3,6 +3,7 @@ const FighterStateName = {
     Walking: "walking",
     Jumping: "jumping",
     Falling: "falling",
+    Attacking: "attacking",
 };
 
 export default FighterStateName;
