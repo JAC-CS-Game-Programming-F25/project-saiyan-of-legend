@@ -22,7 +22,9 @@ export default class PlayState extends State {
         this.map = new Map(mapDefinition);
 
         //The fighter
-        this.fighter = new Fighter(50, 174, 32, 52, this.map);
+        this.fighter1 = new Fighter(50, 174, 32, 52, this.map);
+
+        this.fighter2 = new Fighter(50, 174, 23, 51, this.map);
 
         //Loads background image
         this.backgroundImage = images.get(ImageName.Background);
@@ -36,7 +38,7 @@ export default class PlayState extends State {
     update(dt) {
         timer.update(dt);
         this.map.update(dt);
-        this.fighter.update(dt);
+        this.fighter1.update(dt);
     }
 
     /**
@@ -47,6 +49,6 @@ export default class PlayState extends State {
     render(context) {
         this.backgroundImage.render(0, 0, canvas.width, canvas.height);
         this.map.render(context);
-        this.fighter.render(context);
+        this.fighter1.render(context);
     }
 }
