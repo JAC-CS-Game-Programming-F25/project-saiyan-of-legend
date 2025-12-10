@@ -1,4 +1,3 @@
-import Input from "../../../lib/Input.js";
 import Fighter from "../../entities/Fighter.js";
 import FighterStateName from "../../enums/FighterStateName.js";
 import { input } from "../../globals.js";
@@ -22,8 +21,13 @@ export default class FighterIdlingState extends FighterState {
         this.fighter.velocity.y = 0;
         this.fighter.currentAnimation = this.fighter.animations.idle;
 
-        this.fighter.dimensions.x = 31;
-        this.fighter.dimensions.y = 52;
+        if (this.fighter.playerNumber === 1) {
+            this.fighter.dimensions.x = 31;
+            this.fighter.dimensions.y = 52;
+        } else {
+            this.fighter.dimensions.x = 23;
+            this.fighter.dimensions.y = 50;
+        }
     }
 
     /**
@@ -40,16 +44,16 @@ export default class FighterIdlingState extends FighterState {
      * Handles fighter input.
      */
     handleInput() {
-        //If the fighter is pressing space, change to the jumping state
-        if (input.isKeyPressed(Input.KEYS.SPACE)) {
+        if (input.isKeyPressed(this.controls.jump)) {
             this.fighter.stateMachine.change(FighterStateName.Jumping);
         }
-        //If the player is pressing A or D, not both, change to the walking state
-        if (input.isKeyHeld(Input.KEYS.A) !== input.isKeyHeld(Input.KEYS.D)) {
+        if (
+            input.isKeyHeld(this.controls.moveLeft) !==
+            input.isKeyHeld(this.controls.moveRight)
+        ) {
             this.fighter.stateMachine.change(FighterStateName.Walking);
         }
-        //If the player is pressing E, change to the attacking state
-        if (input.isKeyPressed(Input.KEYS.E)) {
+        if (input.isKeyPressed(this.controls.attack)) {
             this.fighter.stateMachine.change(FighterStateName.Attacking);
         }
     }

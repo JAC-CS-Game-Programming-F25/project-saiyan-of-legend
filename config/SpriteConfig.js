@@ -25,7 +25,7 @@ export const gokuSpriteConfig = {
 };
 
 export const vegetaSpriteConfig = {
-    idle: [{ x: 181, y: 132, width: 23, height: 51 }],
+    idle: [{ x: 181, y: 132, width: 23, height: 50 }],
     walk: [
         { x: 123, y: 208, width: 36, height: 43 },
         { x: 193, y: 218, width: 54, height: 33 },

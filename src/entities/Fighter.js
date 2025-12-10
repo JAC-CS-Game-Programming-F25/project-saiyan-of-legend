@@ -1,6 +1,7 @@
 import {
     gokuSpriteConfig,
     loadFighterSprites,
+    vegetaSpriteConfig,
 } from "../../config/SpriteConfig.js";
 import Map from "../services/Map.js";
 import StateMachine from "../../lib/StateMachine.js";
@@ -25,8 +26,9 @@ export default class Fighter extends Entity {
      * @param {number} width - The width of the fighter.
      * @param {number} height - The height of the fighter.
      * @param {Map} map - The game map instance.
+     * @param {number} playerId - The player number.
      */
-    constructor(x, y, width, height, map) {
+    constructor(x, y, width, height, map, playerNumber) {
         super(x, y, width, height);
 
         this.initialPosition = new Vector(x, y);
@@ -34,13 +36,23 @@ export default class Fighter extends Entity {
         this.dimensions = new Vector(width, height);
         this.velocity = new Vector(0, 0);
         this.map = map;
-        this.facingRight = true;
+        this.playerNumber = playerNumber;
 
-        //Loads the goku sprites
-        this.sprites = loadFighterSprites(
-            images.get(ImageName.Goku),
-            gokuSpriteConfig
-        );
+        if (playerNumber === 1) {
+            //Loads the goku sprites
+            this.sprites = loadFighterSprites(
+                images.get(ImageName.Goku),
+                gokuSpriteConfig
+            );
+            this.facingRight = true;
+        } else {
+            //Loads the vegeta sprites
+            this.sprites = loadFighterSprites(
+                images.get(ImageName.Vegeta),
+                vegetaSpriteConfig
+            );
+            this.facingRight = false;
+        }
 
         //Updates the fighter's animations
         this.updateAnimations();

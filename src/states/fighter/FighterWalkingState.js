@@ -23,7 +23,11 @@ export default class FighterWalkingState extends FighterState {
         this.fighter.currentAnimation = this.fighter.animations.walk;
         this.fighter.currentAnimation.refresh();
 
-        this.fighter.dimensions.x = 47;
+        if (this.fighter.playerNumber === 1) {
+            this.fighter.dimensions.x = 47;
+        } else {
+            this.fighter.dimensions.x = 54;
+        }
     }
 
     /**
@@ -42,20 +46,20 @@ export default class FighterWalkingState extends FighterState {
      * Handles player input.
      */
     handleInput() {
-        if (input.isKeyHeld(Input.KEYS.A) && !this.isMovingRight) {
+        if (input.isKeyHeld(this.controls.moveLeft) && !this.isMovingRight) {
             this.isMovingLeft = true;
         } else {
             this.isMovingLeft = false;
         }
-        if (input.isKeyHeld(Input.KEYS.D) && !this.isMovingLeft) {
+        if (input.isKeyHeld(this.controls.moveRight) && !this.isMovingLeft) {
             this.isMovingRight = true;
         } else {
             this.isMovingRight = false;
         }
-        if (input.isKeyPressed(Input.KEYS.SPACE)) {
+        if (input.isKeyPressed(this.controls.jump)) {
             this.fighter.stateMachine.change(FighterStateName.Jumping);
         }
-        if (input.isKeyPressed(Input.KEYS.E)) {
+        if (input.isKeyPressed(this.controls.attack)) {
             this.fighter.stateMachine.change(FighterStateName.Attacking);
         }
     }

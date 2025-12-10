@@ -1,5 +1,4 @@
 import { FighterConfig } from "../../../config/FighterConfig.js";
-import Input from "../../../lib/Input.js";
 import Fighter from "../../entities/Fighter.js";
 import FighterStateName from "../../enums/FighterStateName.js";
 import { input } from "../../globals.js";
@@ -45,12 +44,13 @@ export default class FighterJumpingState extends FighterState {
      * Handles fighter input.
      */
     handleInput() {
-        if (!input.isKeyHeld(Input.KEYS.SPACE) && this.fighter.velocity.y < 0) {
+        if (
+            !input.isKeyHeld(this.controls.jump) &&
+            this.fighter.velocity.y < 0
+        ) {
             this.fighter.velocity.y *= 0.5;
         }
-
-        //If the player is pressing E, change to the attacking state
-        if (input.isKeyPressed(Input.KEYS.E)) {
+        if (input.isKeyPressed(this.controls.attack)) {
             this.fighter.stateMachine.change(FighterStateName.Attacking);
         }
     }
