@@ -1,9 +1,9 @@
-import Input from "../../../lib/Input.js";
 import State from "../../../lib/State.js";
 import { FighterConfig } from "../../../config/FighterConfig.js";
 import { DEBUG, input } from "../../globals.js";
 import Tile from "../../services/Tile.js";
 import CollisionDetector from "../../services/CollisionDetector.js";
+import { PlayerControls } from "../../enums/PlayerControls.js";
 
 export default class FighterState extends State {
     /**
@@ -15,6 +15,8 @@ export default class FighterState extends State {
         super();
         this.fighter = fighter;
         this.collisionDetector = new CollisionDetector(fighter.map);
+
+        this.controls = PlayerControls[fighter.playerNumber];
     }
 
     /**
@@ -146,12 +148,15 @@ export default class FighterState extends State {
      * Handles horizontal movement of the fighter.
      */
     handleHorizontalMovement() {
-        if (input.isKeyHeld(Input.KEYS.A) && input.isKeyHeld(Input.KEYS.D)) {
+        if (
+            input.isKeyHeld(this.controls.moveLeft) &&
+            input.isKeyHeld(this.controls.moveRight)
+        ) {
             this.slowDown();
-        } else if (input.isKeyHeld(Input.KEYS.A)) {
+        } else if (input.isKeyHeld(this.controls.moveLeft)) {
             this.moveLeft();
             this.fighter.facingRight = false;
-        } else if (input.isKeyHeld(Input.KEYS.D)) {
+        } else if (input.isKeyHeld(this.controls.moveRight)) {
             this.moveRight();
             this.fighter.facingRight = true;
         } else {

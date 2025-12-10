@@ -1,4 +1,3 @@
-import Input from "../../../lib/Input.js";
 import Fighter from "../../entities/Fighter.js";
 import FighterStateName from "../../enums/FighterStateName.js";
 import { input } from "../../globals.js";
@@ -47,9 +46,11 @@ export default class FighterFallingState extends FighterState {
         }
     }
 
+    /**
+     * Handles player input for the falling state.
+     */
     handleInput() {
-        //If the player is pressing E, change to the attacking state
-        if (input.isKeyPressed(Input.KEYS.E)) {
+        if (input.isKeyPressed(this.controls.attack)) {
             this.fighter.stateMachine.change(FighterStateName.Attacking);
         }
     }
