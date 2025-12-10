@@ -15,8 +15,14 @@
         {
             "name": "goku",
             "path": "./assets/images/game/goku.png",
-            "width": 560,
-            "height": 1568
+            "width": 1086,
+            "height": 3042
+        },
+        {
+            "name": "vegeta",
+            "path": "./assets/images/game/vegeta.png",
+            "width": 1086,
+            "height": 3042
         }
     ],
     "fonts": [],
