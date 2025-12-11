@@ -18,6 +18,8 @@ import FighterFallingState from "../states/fighter/FighterFallingState.js";
 import FighterAttackingState from "../states/fighter/FighterAttackingState.js";
 
 export default class Fighter extends Entity {
+    static MAX_HEALTH = 100;
+
     /**
      * Creates a new Fighter instance.
      *
@@ -36,6 +38,7 @@ export default class Fighter extends Entity {
         this.dimensions = new Vector(width, height);
         this.velocity = new Vector(0, 0);
         this.map = map;
+        this.health = Fighter.MAX_HEALTH;
         this.playerNumber = playerNumber;
 
         if (playerNumber === 1) {
