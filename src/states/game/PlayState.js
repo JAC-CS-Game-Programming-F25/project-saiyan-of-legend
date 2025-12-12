@@ -3,6 +3,7 @@ import Fighter from "../../entities/Fighter.js";
 import ImageName from "../../enums/ImageName.js";
 import { canvas, images, timer } from "../../globals.js";
 import Map from "../../services/Map.js";
+import HealthBar from "../../user-interface/HealthBar.js";
 
 /**
  * Represents the main play state of the game.
@@ -21,10 +22,27 @@ export default class PlayState extends State {
         //The game map
         this.map = new Map(mapDefinition);
 
-        //The fighter
-        this.fighter1 = new Fighter(50, 174, 31, 52, this.map, 1);
+        //The fighters
+        this.player1 = new Fighter(50, 174, 31, 52, this.map, 1);
+        this.player2 = new Fighter(470, 174, 23, 50, this.map, 2);
 
-        this.fighter2 = new Fighter(470, 174, 23, 50, this.map, 2);
+        //The health bars
+        this.player1HealthBar = new HealthBar(
+            50,
+            20,
+            150,
+            10,
+            Fighter.MAX_HEALTH,
+            HealthBar.PLAYER1_LABEL
+        );
+        this.player2HealthBar = new HealthBar(
+            360,
+            20,
+            150,
+            10,
+            Fighter.MAX_HEALTH,
+            HealthBar.PLAYER2_LABEL
+        );
 
         //Loads background image
         this.backgroundImage = images.get(ImageName.Background);
@@ -38,8 +56,12 @@ export default class PlayState extends State {
     update(dt) {
         timer.update(dt);
         this.map.update(dt);
-        this.fighter1.update(dt);
-        this.fighter2.update(dt);
+
+        this.player1.update(dt);
+        this.player2.update(dt);
+
+        this.player1HealthBar.update(this.player1.health);
+        this.player2HealthBar.update(this.player2.health);
     }
 
     /**
@@ -50,7 +72,11 @@ export default class PlayState extends State {
     render(context) {
         this.backgroundImage.render(0, 0, canvas.width, canvas.height);
         this.map.render(context);
-        this.fighter1.render(context);
-        this.fighter2.render(context);
+
+        this.player1.render(context);
+        this.player2.render(context);
+
+        this.player1HealthBar.render(context);
+        this.player2HealthBar.render(context);
     }
 }
