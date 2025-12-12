@@ -2,11 +2,11 @@
 
 -   [x] Read the [project requirements](https://vikramsinghmtl.github.io/420-5P6-Game-Programming/project/requirements).
 -   [x] Replace the sample proposal below with the one for your game idea.
--   [ ] Get the proposal greenlit by Vik.
--   [ ] Place any assets in `assets/` and remember to update `src/config.json`.
--   [ ] Decide on a height and width inside `src/globals.js`. The height and width will most likely be determined based on the size of the assets you find.
--   [ ] Start building the individual components of your game, constantly referring to the proposal you wrote to keep yourself on track.
--   [ ] Good luck, you got this!
+-   [x] Get the proposal greenlit by Vik.
+-   [x] Place any assets in `assets/` and remember to update `src/config.json`.
+-   [x] Decide on a height and width inside `src/globals.js`. The height and width will most likely be determined based on the size of the assets you find.
+-   [x] Start building the individual components of your game, constantly referring to the proposal you wrote to keep yourself on track.
+-   [x] Good luck, you got this!
 
 ---
 
@@ -147,12 +147,13 @@ Wireframes were made in Photoshop. The GUI will be kept simple to ensure the gam
 
 **Backgrounds**
 
--   Backgrounds will be taken from freepik.com and other similar sites if nothing good is found.
+-   Backgrounds will be taken from open3dlab and other similar sites if nothing good is found.
 
 **Sources:**
 
 -   [Spriters Resource](https://www.spriters-resource.com/) - Video game sprite sheets
--   [Freepik](https://www.freepik.com/) - Game Backgrounds
+-   [Open3dLab](https://open3dlab.com/) - Game Backgrounds
+-   [Vecteezy](https://www.vecteezy.com/) - Game Backgrounds
 
 ### ✏️ Fonts
 

@@ -1,7 +1,13 @@
 import State from "../../../lib/State.js";
 import Fighter from "../../entities/Fighter.js";
 import ImageName from "../../enums/ImageName.js";
-import { canvas, images, timer } from "../../globals.js";
+import {
+    canvas,
+    CANVAS_HEIGHT,
+    CANVAS_WIDTH,
+    images,
+    timer,
+} from "../../globals.js";
 import Map from "../../services/Map.js";
 import HealthBar from "../../user-interface/HealthBar.js";
 
@@ -44,9 +50,6 @@ export default class PlayState extends State {
             HealthBar.PLAYER2_LABEL
         );
 
-        //Loads background image
-        this.backgroundImage = images.get(ImageName.Background);
-
         //Flag to prevent multiple hits at once
         this.isProcessingHit = false;
     }
@@ -78,7 +81,7 @@ export default class PlayState extends State {
      * @param {CanvasRenderingContext2D} context - The rendering context.
      */
     render(context) {
-        this.backgroundImage.render(0, 0, canvas.width, canvas.height);
+        images.render(ImageName.Background, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
         this.map.render(context);
 
         this.player1.render(context);
