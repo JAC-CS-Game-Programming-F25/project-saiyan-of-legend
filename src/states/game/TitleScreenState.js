@@ -34,11 +34,11 @@ export default class TitleScreenState extends State {
     }
 
     /**
-     * Checks if the ENTER key is pressed and then transitions to the play state.
+     * Checks if the ENTER key is pressed and then transitions to the controls screen state.
      */
     update() {
         if (input.isKeyPressed(Input.KEYS.ENTER)) {
-            stateMachine.change(GameStateName.Play);
+            stateMachine.change(GameStateName.ControlsScreen);
         }
     }
 

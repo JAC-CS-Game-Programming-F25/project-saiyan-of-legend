@@ -1,7 +1,8 @@
 const Colour = {
     Black: "black",
-    Blue: "blue",
     White: "white",
+    Blue: "blue",
+    Gold: "gold",
     Green: "green",
     Red: "red",
     Yellow: "yellow",
