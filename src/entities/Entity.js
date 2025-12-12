@@ -1,5 +1,7 @@
 import { getCollisionDirection, isAABBCollision } from "../../lib/Collision.js";
+import Hitbox from "../../lib/Hitbox.js";
 import Vector from "../../lib/Vector.js";
+import Colour from "../enums/Colour.js";
 
 export default class Entity {
     /**
@@ -15,6 +17,14 @@ export default class Entity {
         this.dimensions = new Vector(width, height);
         this.velocity = new Vector(0, 0);
         this.isOnGround = false;
+
+        this.hitbox = new Hitbox(
+            this.position.x,
+            this.position.y,
+            this.dimensions.x,
+            this.dimensions.y,
+            Colour.Red
+        );
     }
 
     /**

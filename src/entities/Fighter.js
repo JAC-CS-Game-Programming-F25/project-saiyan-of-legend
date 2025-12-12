@@ -51,14 +51,14 @@ export default class Fighter extends Entity {
                 images.get(ImageName.Goku),
                 gokuSpriteConfig
             );
-            this.facingRight = true;
+            this.isFacingRight = true;
         } else if (playerNumber === 2) {
             //Loads the vegeta sprites
             this.sprites = loadFighterSprites(
                 images.get(ImageName.Vegeta),
                 vegetaSpriteConfig
             );
-            this.facingRight = false;
+            this.isFacingRight = false;
         }
 
         //Updates the fighter's animations
@@ -67,15 +67,20 @@ export default class Fighter extends Entity {
         //Sets the fighter's current animation to idle
         this.currentAnimation = this.animations.idle;
 
-        this.hitbox = new Hitbox(
-            this.position.x,
-            this.position.y,
-            this.dimensions.x,
-            this.dimensions.y,
-            Colour.Red
-        );
-
+        //Sets the fighter's attack hitbox and offsets for right and left attacks
         this.attackHitbox = new Hitbox(0, 0, 0, 0, Colour.Blue);
+        this.attackHitboxOffsetsRight = new Hitbox(
+            this.dimensions.x,
+            this.dimensions.y * 0.2,
+            20,
+            this.dimensions.y * 0.6
+        );
+        this.attackHitboxOffsetsLeft = new Hitbox(
+            -10,
+            this.dimensions.y * 0.2,
+            20,
+            this.dimensions.y * 0.6
+        );
 
         //Initialize state machine for fighter behavior
         this.stateMachine = new StateMachine();
@@ -133,11 +138,15 @@ export default class Fighter extends Entity {
      * Sets the fighter's attack hitbox
      */
     setAttackHitbox() {
+        const offset = this.isFacingRight
+            ? this.attackHitboxOffsetsRight
+            : this.attackHitboxOffsetsLeft;
+
         this.attackHitbox.set(
-            this.position.x,
-            this.position.y,
-            this.dimensions.x,
-            this.dimensions.y
+            this.position.x + offset.position.x,
+            this.position.y + offset.position.y,
+            offset.dimensions.x,
+            offset.dimensions.y
         );
     }
 
