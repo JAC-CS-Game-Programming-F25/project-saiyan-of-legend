@@ -4,6 +4,9 @@ import Colour from "../enums/Colour.js";
 import Tile from "../services/Tile.js";
 
 export default class HealthBar {
+    static PLAYER1_LABEL = "P1";
+    static PLAYER2_LABEL = "P2";
+
     /**
      * Constructs a new HealthBar
      * @param {number} x - The x position of the HealthBar.
@@ -11,8 +14,9 @@ export default class HealthBar {
      * @param {number} width - The width of the HealthBar.
      * @param {number} height - The height of the HealthBar.
      * @param {number} maxValue - The maximum value of the HealthBar.
+     * @param {string} label - The label of the HealthBar.
      */
-    constructor(x, y, width, height, maxValue) {
+    constructor(x, y, width, height, maxValue, label) {
         this.position = new Vector(x * Tile.SIZE, y * Tile.SIZE);
         this.dimensions = new Vector(width * Tile.SIZE, height * Tile.SIZE);
 
@@ -25,6 +29,9 @@ export default class HealthBar {
         //Sets current and max values
         this.currentValue = maxValue;
         this.maxValue = maxValue;
+
+        //Sets label
+        this.label = label;
     }
 
     /**
@@ -46,8 +53,25 @@ export default class HealthBar {
 
         context.save();
 
-        //Draws a white background rectangle
         context.fillStyle = Colour.White;
+        context.font = `13px PressStart2P`;
+        context.textBaseline = "middle";
+
+        if (this.label === HealthBar.PLAYER1_LABEL) {
+            context.fillText(
+                this.label,
+                this.position.x - this.dimensions.x + 110,
+                this.position.y + this.dimensions.y / 2
+            );
+        } else if (this.label === HealthBar.PLAYER2_LABEL) {
+            context.fillText(
+                this.label,
+                this.position.x + this.dimensions.x + 15,
+                this.position.y + this.dimensions.y / 2
+            );
+        }
+
+        //Draws a white background rectangle
         roundedRectangle(
             context,
             this.position.x,

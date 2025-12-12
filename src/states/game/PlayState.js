@@ -28,18 +28,20 @@ export default class PlayState extends State {
 
         //The health bars
         this.player1HealthBar = new HealthBar(
-            20,
+            50,
             20,
             150,
             10,
-            Fighter.MAX_HEALTH
+            Fighter.MAX_HEALTH,
+            HealthBar.PLAYER1_LABEL
         );
         this.player2HealthBar = new HealthBar(
-            390,
+            360,
             20,
             150,
             10,
-            Fighter.MAX_HEALTH
+            Fighter.MAX_HEALTH,
+            HealthBar.PLAYER2_LABEL
         );
 
         //Loads background image

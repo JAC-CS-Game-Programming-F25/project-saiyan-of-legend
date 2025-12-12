@@ -25,6 +25,11 @@
             "height": 3042
         }
     ],
-    "fonts": [],
+    "fonts": [
+        {
+            "name": "PressStart2P",
+            "path": "./assets/fonts/PressStart2P.ttf"
+        }
+    ],
     "sounds": []
 }
