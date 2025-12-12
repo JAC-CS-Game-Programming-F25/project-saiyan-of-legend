@@ -30,6 +30,10 @@ export default class FighterAttackingState extends FighterState {
         this.fighter.position.y += 5;
     }
 
+    exit() {
+        this.fighter.clearAttackHitbox();
+    }
+
     /**
      * Updates the attacking state.
      *
@@ -37,6 +41,8 @@ export default class FighterAttackingState extends FighterState {
      */
     update(dt) {
         super.update(dt);
+
+        this.fighter.setAttackHitbox();
 
         if (this.fighter.currentAnimation.isDone()) {
             if (this.fighter.isOnGround) {

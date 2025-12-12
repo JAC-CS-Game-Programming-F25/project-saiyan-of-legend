@@ -6,11 +6,13 @@ import {
 import Map from "../services/Map.js";
 import StateMachine from "../../lib/StateMachine.js";
 import Animation from "../../lib/Animation.js";
-import { images } from "../globals.js";
+import { DEBUG, images } from "../globals.js";
 import ImageName from "../enums/ImageName.js";
 import FighterStateName from "../enums/FighterStateName.js";
+import Colour from "../enums/Colour.js";
 import Entity from "./Entity.js";
 import Vector from "../../lib/Vector.js";
+import Hitbox from "../../lib/Hitbox.js";
 import FighterIdlingState from "../states/fighter/FighterIdlingState.js";
 import FighterWalkingState from "../states/fighter/FighterWalkingState.js";
 import FighterJumpingState from "../states/fighter/FighterJumpingState.js";
@@ -33,6 +35,7 @@ export default class Fighter extends Entity {
     constructor(x, y, width, height, map, playerNumber) {
         super(x, y, width, height);
 
+        //Sets the fighter's properties
         this.initialPosition = new Vector(x, y);
         this.position = new Vector(x, y);
         this.dimensions = new Vector(width, height);
@@ -41,20 +44,21 @@ export default class Fighter extends Entity {
         this.health = Fighter.MAX_HEALTH;
         this.playerNumber = playerNumber;
 
+        //Loads the fighter's sprites based on the player number
         if (playerNumber === 1) {
             //Loads the goku sprites
             this.sprites = loadFighterSprites(
                 images.get(ImageName.Goku),
                 gokuSpriteConfig
             );
-            this.facingRight = true;
-        } else {
+            this.isFacingRight = true;
+        } else if (playerNumber === 2) {
             //Loads the vegeta sprites
             this.sprites = loadFighterSprites(
                 images.get(ImageName.Vegeta),
                 vegetaSpriteConfig
             );
-            this.facingRight = false;
+            this.isFacingRight = false;
         }
 
         //Updates the fighter's animations
@@ -62,6 +66,21 @@ export default class Fighter extends Entity {
 
         //Sets the fighter's current animation to idle
         this.currentAnimation = this.animations.idle;
+
+        //Sets the fighter's attack hitbox and offsets for right and left attacks
+        this.attackHitbox = new Hitbox(0, 0, 0, 0, Colour.Blue);
+        this.attackHitboxOffsetsRight = new Hitbox(
+            this.dimensions.x,
+            this.dimensions.y * 0.2,
+            20,
+            this.dimensions.y * 0.6
+        );
+        this.attackHitboxOffsetsLeft = new Hitbox(
+            -10,
+            this.dimensions.y * 0.2,
+            20,
+            this.dimensions.y * 0.6
+        );
 
         //Initialize state machine for fighter behavior
         this.stateMachine = new StateMachine();
@@ -104,12 +123,67 @@ export default class Fighter extends Entity {
     }
 
     /**
+     * Updates the position and dimensions of the fighter's hitbox.
+     */
+    updateHitbox() {
+        this.hitbox.set(
+            this.position.x,
+            this.position.y,
+            this.dimensions.x,
+            this.dimensions.y
+        );
+    }
+
+    /**
+     * Sets the fighter's attack hitbox
+     */
+    setAttackHitbox() {
+        const offset = this.isFacingRight
+            ? this.attackHitboxOffsetsRight
+            : this.attackHitboxOffsetsLeft;
+
+        this.attackHitbox.set(
+            this.position.x + offset.position.x,
+            this.position.y + offset.position.y,
+            offset.dimensions.x,
+            offset.dimensions.y
+        );
+    }
+
+    /**
+     * Clears the attack hitbox by setting its position and dimensions to zero.
+     */
+    clearAttackHitbox() {
+        this.attackHitbox.set(0, 0, 0, 0);
+    }
+
+    /**
+     * Checks if the fighter's attack hitbox collides with the target's hitbox.
+     *
+     * @param {Fighter} target - The target fighter to check collision with.
+     * @returns {boolean} True if the attack hitbox collides with the target's hitbox, false otherwise.
+     */
+    attackHitboxCollidesWith(target) {
+        return this.attackHitbox.didCollide(target.hitbox);
+    }
+
+    /**
+     * Makes the fighter take damage.
+     *
+     * @param {number} damage - Amount of damage to take.
+     */
+    receiveDamage(damage) {
+        this.health = Math.max(0, this.health - damage);
+    }
+
+    /**
      * Updates the fighter's state.
      *
      * @param {number} dt - The time passed since the last update.
      */
     update(dt) {
         this.stateMachine.update(dt);
+        this.updateHitbox();
     }
 
     /**
@@ -119,5 +193,10 @@ export default class Fighter extends Entity {
      */
     render(context) {
         this.stateMachine.render(context);
+
+        if (DEBUG) {
+            this.hitbox.render(context);
+            this.attackHitbox.render(context);
+        }
     }
 }
