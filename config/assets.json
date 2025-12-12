@@ -13,6 +13,12 @@
             "height": 1080
         },
         {
+            "name": "title_screen",
+            "path": "./assets/images/game/title_screen.png",
+            "width": 1920,
+            "height": 1080
+        },
+        {
             "name": "goku",
             "path": "./assets/images/game/goku.png",
             "width": 1086,

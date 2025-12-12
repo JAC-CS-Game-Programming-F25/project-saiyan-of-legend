@@ -45,7 +45,7 @@ stateMachine.add(GameStateName.ControlsScreen, new ControlsScreenState());
 stateMachine.add(GameStateName.Play, new PlayState(mapDefinition));
 stateMachine.add(GameStateName.Victory, new VictoryState());
 
-stateMachine.change(GameStateName.Play);
+stateMachine.change(GameStateName.TitleScreen);
 
 const game = new Game(stateMachine, context, canvas.width, canvas.height);
 
