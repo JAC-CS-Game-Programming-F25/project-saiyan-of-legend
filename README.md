@@ -35,7 +35,7 @@ When hit (and not blocking), fighters get stunned. This prevents infinite combos
 **Victory Conditions:**  
 The first player to reduce their opponent's health to zero wins the match. Upon victory, the winner is displayed on a victory screen with option to return to the title screen.
 
-The game is played entirely with keyboard controls, with Player 1 using WASD + E/Q/1/2/3/ and Player 2 using IJKL + O/U/7/8/9.
+The game is played entirely with keyboard controls, with Player 1 using WASD + E/1/2/3/ and Player 2 using IJKL + O/7/8/9.
 
 ## 📃 Requirements
 
@@ -75,7 +75,7 @@ The game is played entirely with keyboard controls, with Player 1 using WASD + E
 
 ### Defense
 
-23. The user shall hold `Q` or `U` to block.
+23. The user shall hold `S` or `K` to block.
 24. The system shall reduce incoming damage by 50% while blocking.
 25. The system shall prevent movement while blocking.
 
