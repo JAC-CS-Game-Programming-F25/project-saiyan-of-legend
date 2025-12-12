@@ -130,6 +130,44 @@ export default class Fighter extends Entity {
     }
 
     /**
+     * Sets the fighter's attack hitbox
+     */
+    setAttackHitbox() {
+        this.attackHitbox.set(
+            this.position.x,
+            this.position.y,
+            this.dimensions.x,
+            this.dimensions.y
+        );
+    }
+
+    /**
+     * Clears the attack hitbox by setting its position and dimensions to zero.
+     */
+    clearAttackHitbox() {
+        this.attackHitbox.set(0, 0, 0, 0);
+    }
+
+    /**
+     * Checks if the fighter's attack hitbox collides with the target's hitbox.
+     *
+     * @param {Fighter} target - The target fighter to check collision with.
+     * @returns {boolean} True if the attack hitbox collides with the target's hitbox, false otherwise.
+     */
+    attackHitboxCollidesWith(target) {
+        return this.attackHitbox.didCollide(target.hitbox);
+    }
+
+    /**
+     * Makes the fighter take damage.
+     *
+     * @param {number} damage - Amount of damage to take.
+     */
+    receiveDamage(damage) {
+        this.health = Math.max(0, this.health - damage);
+    }
+
+    /**
      * Updates the fighter's state.
      *
      * @param {number} dt - The time passed since the last update.
