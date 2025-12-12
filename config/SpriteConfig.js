@@ -15,6 +15,10 @@ export const gokuSpriteConfig = {
         { x: 203, y: 279, width: 32, height: 60 },
         { x: 245, y: 276, width: 32, height: 60 },
     ],
+    death: [
+        { x: 311, y: 719, width: 31, height: 38 },
+        { x: 352, y: 731, width: 55, height: 29 },
+    ],
     attack: [
         { x: 217, y: 445, width: 39, height: 48 },
         { x: 265, y: 445, width: 43, height: 48 },
@@ -38,6 +42,10 @@ export const vegetaSpriteConfig = {
         { x: 156, y: 274, width: 32, height: 46 },
         { x: 202, y: 276, width: 29, height: 50 },
         { x: 247, y: 270, width: 26, height: 56 },
+    ],
+    death: [
+        { x: 305, y: 714, width: 31, height: 35 },
+        { x: 346, y: 733, width: 53, height: 20 },
     ],
     attack: [
         { x: 204, y: 438, width: 33, height: 44 },
