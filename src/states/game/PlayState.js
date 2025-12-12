@@ -46,6 +46,9 @@ export default class PlayState extends State {
 
         //Loads background image
         this.backgroundImage = images.get(ImageName.Background);
+
+        //Flag to prevent multiple hits at once
+        this.isProcessingHit = false;
     }
 
     /**
@@ -59,6 +62,11 @@ export default class PlayState extends State {
 
         this.player1.update(dt);
         this.player2.update(dt);
+
+        //Checks if a hit is not being processed then checks for collisions
+        if (!this.isProcessingHit) {
+            this.checkAttackCollisions();
+        }
 
         this.player1HealthBar.update(this.player1.health);
         this.player2HealthBar.update(this.player2.health);
@@ -78,5 +86,39 @@ export default class PlayState extends State {
 
         this.player1HealthBar.render(context);
         this.player2HealthBar.render(context);
+    }
+
+    /**
+     * Checks if either player's attack hitbox collides with the other player's body.
+     */
+    checkAttackCollisions() {
+        //Checks if player2's attack hit player1's body
+        if (this.player1.attackHitboxCollidesWith(this.player2)) {
+            this.handleAttackHit(this.player1, this.player2);
+        }
+        //Checks if player2's attack hit player1's body
+        if (this.player2.attackHitboxCollidesWith(this.player1)) {
+            this.handleAttackHit(this.player2, this.player1);
+        }
+    }
+
+    /**
+     * Handles when an attack successfully lands.
+     */
+    handleAttackHit(attacker, victim) {
+        this.isProcessingHit = true;
+
+        //Deals damage to the victim
+        victim.receiveDamage(5);
+
+        //Waits a bit before allowing another hit
+        timer.addTask(
+            () => {},
+            0,
+            0.5,
+            () => {
+                this.isProcessingHit = false;
+            }
+        );
     }
 }

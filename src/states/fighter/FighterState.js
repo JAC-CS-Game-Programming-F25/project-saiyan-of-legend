@@ -41,7 +41,7 @@ export default class FighterState extends State {
         context.save();
 
         //Handles fighter orientation
-        if (!this.fighter.facingRight) {
+        if (!this.fighter.isFacingRight) {
             //If facing left, flip the sprite horizontally
             context.scale(-1, 1);
             //Adjusts position to account for the flip
@@ -97,10 +97,10 @@ export default class FighterState extends State {
             this.slowDown();
         } else if (input.isKeyHeld(this.controls.moveLeft)) {
             this.moveLeft();
-            this.fighter.facingRight = false;
+            this.fighter.isFacingRight = false;
         } else if (input.isKeyHeld(this.controls.moveRight)) {
             this.moveRight();
-            this.fighter.facingRight = true;
+            this.fighter.isFacingRight = true;
         } else {
             this.slowDown();
         }
