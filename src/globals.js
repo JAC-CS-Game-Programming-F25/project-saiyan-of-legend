@@ -41,4 +41,4 @@ sounds.load(assetDefinition.sounds);
 images.load(assetDefinition.images);
 fonts.load(assetDefinition.fonts);
 
-export const DEBUG = true;
+export const DEBUG = false;
