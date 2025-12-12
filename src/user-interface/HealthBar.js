@@ -54,13 +54,13 @@ export default class HealthBar {
         context.save();
 
         context.fillStyle = Colour.White;
-        context.font = `13px PressStart2P`;
+        context.font = `12px PressStart2P`;
         context.textBaseline = "middle";
 
         if (this.label === HealthBar.PLAYER1_LABEL) {
             context.fillText(
                 this.label,
-                this.position.x - this.dimensions.x + 110,
+                this.position.x - this.dimensions.x + 115,
                 this.position.y + this.dimensions.y / 2
             );
         } else if (this.label === HealthBar.PLAYER2_LABEL) {
