@@ -15,6 +15,7 @@ import FighterFallingState from "../states/fighter/FighterFallingState.js";
 import FighterAttackingState from "../states/fighter/FighterAttackingState.js";
 import FighterDyingState from "../states/fighter/FighterDyingState.js";
 import Tile from "../services/Tile.js";
+import FighterBlockingState from "../states/fighter/FighterBlockingState.js";
 
 export default class Fighter extends Entity {
     static MAX_HEALTH = 100;
@@ -45,6 +46,7 @@ export default class Fighter extends Entity {
         this.playerNumber = playerNumber;
         this.isInvincible = false;
         this.isDead = false;
+        this.isBlocking = false;
 
         //Sets the fighter's facing direction
         if (playerNumber === 1) {
@@ -100,6 +102,10 @@ export default class Fighter extends Entity {
             new FighterDyingState(this)
         );
         this.stateMachine.add(
+            FighterStateName.Blocking,
+            new FighterBlockingState(this)
+        );
+        this.stateMachine.add(
             FighterStateName.Attacking,
             new FighterAttackingState(this)
         );
@@ -120,6 +126,7 @@ export default class Fighter extends Entity {
             jump: new Animation(this.sprites.jump, 0.15, 1),
             fall: new Animation(this.sprites.fall, 0.5, 1),
             death: new Animation(this.sprites.death, 0.25, 1),
+            block: new Animation(this.sprites.block, 0.1, 1),
             attack: new Animation(this.sprites.attack, 0.1, 1),
         };
     }
@@ -187,10 +194,18 @@ export default class Fighter extends Entity {
      * @param {number} damage - Amount of damage to take.
      */
     receiveDamage(damage) {
+        //If the fighter is not invincible or dead, take damage
         if (!this.isInvincible && !this.isDead) {
+            //If the fighter is blocking, half the damage
+            if (this.isBlocking) {
+                damage /= 2;
+            }
+
+            //Update health
             this.health = Math.max(0, this.health - damage);
 
-            if (this.health <= 0) {
+            //If health is 0 then die
+            if (this.health === 0) {
                 this.die();
             }
         }

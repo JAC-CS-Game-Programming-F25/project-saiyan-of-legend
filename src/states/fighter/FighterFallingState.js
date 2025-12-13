@@ -54,5 +54,8 @@ export default class FighterFallingState extends FighterState {
         if (input.isKeyPressed(this.controls.attack)) {
             this.fighter.stateMachine.change(FighterStateName.Attacking);
         }
+        if (input.isKeyHeld(this.controls.block)) {
+            this.fighter.stateMachine.change(FighterStateName.Blocking);
+        }
     }
 }

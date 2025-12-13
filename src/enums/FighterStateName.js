@@ -4,6 +4,7 @@ const FighterStateName = {
     Jumping: "jumping",
     Falling: "falling",
     Dying: "dying",
+    Blocking: "blocking",
     Attacking: "attacking",
 };
 
