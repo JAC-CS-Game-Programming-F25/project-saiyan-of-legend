@@ -22,7 +22,6 @@ export const gokuSpriteConfig = {
     block: [
         { x: 68, y: 363, width: 33, height: 48 },
         { x: 111, y: 363, width: 31, height: 48 },
-        {},
     ],
     attack: [
         { x: 217, y: 445, width: 39, height: 48 },
@@ -55,7 +54,6 @@ export const vegetaSpriteConfig = {
     block: [
         { x: 68, y: 354, width: 28, height: 47 },
         { x: 115, y: 355, width: 26, height: 47 },
-        {},
     ],
     attack: [
         { x: 204, y: 438, width: 33, height: 44 },

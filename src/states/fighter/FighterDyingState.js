@@ -1,4 +1,3 @@
-import FighterStateName from "../../enums/FighterStateName.js";
 import FighterState from "./FighterState.js";
 
 export default class FighterDyingState extends FighterState {
