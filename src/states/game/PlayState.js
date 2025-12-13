@@ -160,17 +160,27 @@ export default class PlayState extends State {
         );
     }
 
+    /**
+     * Checks if either player is dead and if so, changes the game state to the victory state.
+     */
     checkVictory() {
         //Checks if either player is dead
         if ((this.player1.isDead || this.player2.isDead) && !this.isGameOver) {
-            //Waits a bit before going to the title screen
             this.isGameOver = true;
+
+            //Determines the winner
+            const winner = this.player1.isDead ? this.player2 : this.player1;
+
+            //Waits 2 seconds before transitioning to the victory state
             timer.addTask(
                 () => {},
                 0,
                 2,
                 () => {
-                    stateMachine.change(GameStateName.TitleScreen);
+                    stateMachine.change(GameStateName.Victory, {
+                        winnerName: winner.name,
+                        winnerNumber: winner.playerNumber,
+                    });
                 }
             );
         }
