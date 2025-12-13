@@ -210,7 +210,7 @@ export default class Fighter extends Entity {
         //Gets the bottom of the map
         const mapBottom = this.map.height * Tile.SIZE;
 
-        //Checks if player has fallen below the map and kills it
+        //Checks if fighter has fallen below the map then dies
         if (this.position.y > mapBottom) {
             this.health = 0;
             this.die();
