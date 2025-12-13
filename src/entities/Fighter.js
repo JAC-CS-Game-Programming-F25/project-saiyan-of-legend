@@ -195,9 +195,10 @@ export default class Fighter extends Entity {
         }
     }
 
+    /**
+     * Sets the fighter's state to dying.
+     */
     die() {
-        this.isInvincible = true;
-        this.isDead = true;
         this.stateMachine.change(FighterStateName.Dying);
     }
 
