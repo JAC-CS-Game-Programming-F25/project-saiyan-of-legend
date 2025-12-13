@@ -19,14 +19,8 @@ export default class FighterAttackingState extends FighterState {
         this.fighter.currentAnimation = this.fighter.animations.attack;
         this.fighter.currentAnimation.refresh();
 
-        if (this.fighter.playerNumber === 1) {
-            this.fighter.dimensions.x = 43;
-            this.fighter.dimensions.y = 48;
-        } else {
-            this.fighter.dimensions.x = 41;
-            this.fighter.dimensions.y = 46;
-        }
-
+        //Sets the attack animation dimensions
+        this.fighter.setDimensionsForAnimation("attack", 0);
         this.fighter.position.y += 5;
     }
 

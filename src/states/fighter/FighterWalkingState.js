@@ -23,11 +23,9 @@ export default class FighterWalkingState extends FighterState {
         this.fighter.currentAnimation = this.fighter.animations.walk;
         this.fighter.currentAnimation.refresh();
 
-        if (this.fighter.playerNumber === 1) {
-            this.fighter.dimensions.x = 47;
-        } else {
-            this.fighter.dimensions.x = 54;
-        }
+        //Sets the walking animation dimensions
+        this.fighter.setDimensionsForAnimation("walk", 0);
+        this.fighter.position.y += 15;
     }
 
     /**
