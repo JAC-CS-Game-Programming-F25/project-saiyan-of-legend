@@ -6,6 +6,7 @@ import FighterState from "./FighterState.js";
 export default class FighterFallingState extends FighterState {
     /**
      * Creates a new FighterFallingState instance.
+     *
      * @param {Fighter} fighter - The fighter object.
      */
     constructor(fighter) {

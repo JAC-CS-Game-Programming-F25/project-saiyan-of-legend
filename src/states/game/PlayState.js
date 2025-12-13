@@ -1,11 +1,17 @@
+import {
+    gokuSpriteConfig,
+    vegetaSpriteConfig,
+} from "../../../config/SpriteConfig.js";
 import State from "../../../lib/State.js";
 import Fighter from "../../entities/Fighter.js";
+import GameStateName from "../../enums/GameStateName.js";
 import ImageName from "../../enums/ImageName.js";
 import {
     canvas,
     CANVAS_HEIGHT,
     CANVAS_WIDTH,
     images,
+    stateMachine,
     timer,
 } from "../../globals.js";
 import Map from "../../services/Map.js";
@@ -27,10 +33,33 @@ export default class PlayState extends State {
 
         //The game map
         this.map = new Map(mapDefinition);
+    }
 
+    /**
+     * Initializes the play state.
+     */
+    enter() {
         //The fighters
-        this.player1 = new Fighter(50, 174, 31, 52, this.map, 1);
-        this.player2 = new Fighter(470, 174, 23, 50, this.map, 2);
+        this.player1 = new Fighter(
+            50,
+            174,
+            31,
+            52,
+            this.map,
+            gokuSpriteConfig,
+            ImageName.Goku,
+            1
+        );
+        this.player2 = new Fighter(
+            470,
+            174,
+            23,
+            50,
+            this.map,
+            vegetaSpriteConfig,
+            ImageName.Vegeta,
+            2
+        );
 
         //The health bars
         this.player1HealthBar = new HealthBar(
@@ -52,6 +81,9 @@ export default class PlayState extends State {
 
         //Flag to prevent multiple hits at once
         this.isProcessingHit = false;
+
+        //Flag to check if the game is over
+        this.isGameOver = false;
     }
 
     /**
@@ -73,6 +105,9 @@ export default class PlayState extends State {
 
         this.player1HealthBar.update(this.player1.health);
         this.player2HealthBar.update(this.player2.health);
+
+        //Checks if either player is dead
+        this.checkVictory();
     }
 
     /**
@@ -112,7 +147,7 @@ export default class PlayState extends State {
         this.isProcessingHit = true;
 
         //Deals damage to the victim
-        victim.receiveDamage(5);
+        victim.receiveDamage(50);
 
         //Waits a bit before allowing another hit
         timer.addTask(
@@ -123,5 +158,21 @@ export default class PlayState extends State {
                 this.isProcessingHit = false;
             }
         );
+    }
+
+    checkVictory() {
+        //Checks if either player is dead
+        if ((this.player1.isDead || this.player2.isDead) && !this.isGameOver) {
+            //Waits a bit before going to the title screen
+            this.isGameOver = true;
+            timer.addTask(
+                () => {},
+                0,
+                2,
+                () => {
+                    stateMachine.change(GameStateName.TitleScreen);
+                }
+            );
+        }
     }
 }

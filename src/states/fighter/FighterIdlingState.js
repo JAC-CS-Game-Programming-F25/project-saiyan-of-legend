@@ -21,13 +21,8 @@ export default class FighterIdlingState extends FighterState {
         this.fighter.velocity.y = 0;
         this.fighter.currentAnimation = this.fighter.animations.idle;
 
-        if (this.fighter.playerNumber === 1) {
-            this.fighter.dimensions.x = 31;
-            this.fighter.dimensions.y = 52;
-        } else {
-            this.fighter.dimensions.x = 23;
-            this.fighter.dimensions.y = 50;
-        }
+        //Sets the idling animation dimensions
+        this.fighter.setDimensionsForAnimation("idle", 0);
     }
 
     /**

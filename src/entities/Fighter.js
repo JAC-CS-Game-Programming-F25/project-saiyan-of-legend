@@ -1,13 +1,8 @@
-import {
-    gokuSpriteConfig,
-    loadFighterSprites,
-    vegetaSpriteConfig,
-} from "../../config/SpriteConfig.js";
+import { loadFighterSprites } from "../../config/SpriteConfig.js";
 import Map from "../services/Map.js";
 import StateMachine from "../../lib/StateMachine.js";
 import Animation from "../../lib/Animation.js";
 import { DEBUG, images } from "../globals.js";
-import ImageName from "../enums/ImageName.js";
 import FighterStateName from "../enums/FighterStateName.js";
 import Colour from "../enums/Colour.js";
 import Entity from "./Entity.js";
@@ -18,6 +13,8 @@ import FighterWalkingState from "../states/fighter/FighterWalkingState.js";
 import FighterJumpingState from "../states/fighter/FighterJumpingState.js";
 import FighterFallingState from "../states/fighter/FighterFallingState.js";
 import FighterAttackingState from "../states/fighter/FighterAttackingState.js";
+import FighterDyingState from "../states/fighter/FighterDyingState.js";
+import Tile from "../services/Tile.js";
 
 export default class Fighter extends Entity {
     static MAX_HEALTH = 100;
@@ -30,9 +27,10 @@ export default class Fighter extends Entity {
      * @param {number} width - The width of the fighter.
      * @param {number} height - The height of the fighter.
      * @param {Map} map - The game map instance.
-     * @param {number} playerId - The player number.
+     * @param {Object} spriteConfig - The sprite configuration.
+     * @param {number} playerNumber - The player number.
      */
-    constructor(x, y, width, height, map, playerNumber) {
+    constructor(x, y, width, height, map, spriteConfig, name, playerNumber) {
         super(x, y, width, height);
 
         //Sets the fighter's properties
@@ -41,25 +39,24 @@ export default class Fighter extends Entity {
         this.dimensions = new Vector(width, height);
         this.velocity = new Vector(0, 0);
         this.map = map;
+        this.spriteConfig = spriteConfig;
+        this.name = name;
         this.health = Fighter.MAX_HEALTH;
         this.playerNumber = playerNumber;
+        this.isInvincible = false;
+        this.isDead = false;
 
-        //Loads the fighter's sprites based on the player number
+        //Sets the fighter's facing direction
         if (playerNumber === 1) {
-            //Loads the goku sprites
-            this.sprites = loadFighterSprites(
-                images.get(ImageName.Goku),
-                gokuSpriteConfig
-            );
             this.isFacingRight = true;
         } else if (playerNumber === 2) {
-            //Loads the vegeta sprites
-            this.sprites = loadFighterSprites(
-                images.get(ImageName.Vegeta),
-                vegetaSpriteConfig
-            );
             this.isFacingRight = false;
         }
+
+        this.sprites = loadFighterSprites(
+            images.get(this.name),
+            this.spriteConfig
+        );
 
         //Updates the fighter's animations
         this.updateAnimations();
@@ -99,6 +96,10 @@ export default class Fighter extends Entity {
             new FighterWalkingState(this)
         );
         this.stateMachine.add(
+            FighterStateName.Dying,
+            new FighterDyingState(this)
+        );
+        this.stateMachine.add(
             FighterStateName.Attacking,
             new FighterAttackingState(this)
         );
@@ -118,8 +119,21 @@ export default class Fighter extends Entity {
             walk: new Animation(this.sprites.walk, 0.5, 1),
             jump: new Animation(this.sprites.jump, 0.15, 1),
             fall: new Animation(this.sprites.fall, 0.5, 1),
+            death: new Animation(this.sprites.death, 0.25, 1),
             attack: new Animation(this.sprites.attack, 0.1, 1),
         };
+    }
+
+    /**
+     * Sets the dimensions of the fighter to match the dimensions of the current animation frame.
+     *
+     * @param {string} animationName - The name of the animation.
+     * @param {number} [frame] - The frame number of the animation.
+     */
+    setDimensionsForAnimation(animationName, frame = 0) {
+        const frames = this.spriteConfig[animationName];
+        this.dimensions.x = frames[frame].width;
+        this.dimensions.y = frames[frame].height;
     }
 
     /**
@@ -173,7 +187,34 @@ export default class Fighter extends Entity {
      * @param {number} damage - Amount of damage to take.
      */
     receiveDamage(damage) {
-        this.health = Math.max(0, this.health - damage);
+        if (!this.isInvincible && !this.isDead) {
+            this.health = Math.max(0, this.health - damage);
+
+            if (this.health <= 0) {
+                this.die();
+            }
+        }
+    }
+
+    /**
+     * Sets the fighter's state to dying.
+     */
+    die() {
+        this.stateMachine.change(FighterStateName.Dying);
+    }
+
+    /**
+     * Checks if the fighter has fallen off the map.
+     */
+    checkFallOffMap() {
+        //Gets the bottom of the map
+        const mapBottom = this.map.height * Tile.SIZE;
+
+        //Checks if fighter has fallen below the map then dies
+        if (this.position.y > mapBottom) {
+            this.health = 0;
+            this.die();
+        }
     }
 
     /**
@@ -184,6 +225,7 @@ export default class Fighter extends Entity {
     update(dt) {
         this.stateMachine.update(dt);
         this.updateHitbox();
+        this.checkFallOffMap();
     }
 
     /**
