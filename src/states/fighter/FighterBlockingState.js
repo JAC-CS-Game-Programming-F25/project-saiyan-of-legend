@@ -23,6 +23,8 @@ export default class FighterBlockingState extends FighterState {
         //Sets the blocking animation dimensions
         this.fighter.setDimensionsForAnimation("block", 0);
         this.fighter.position.y += 5;
+
+        this.fighter.isBlocking = true;
     }
 
     /**
@@ -34,6 +36,7 @@ export default class FighterBlockingState extends FighterState {
         super.update(dt);
 
         if (!input.isKeyHeld(this.controls.block)) {
+            this.fighter.isBlocking = false;
             this.fighter.stateMachine.change(FighterStateName.Idling);
         }
     }

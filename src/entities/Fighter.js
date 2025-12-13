@@ -194,10 +194,18 @@ export default class Fighter extends Entity {
      * @param {number} damage - Amount of damage to take.
      */
     receiveDamage(damage) {
+        //If the fighter is not invincible or dead, take damage
         if (!this.isInvincible && !this.isDead) {
+            //If the fighter is blocking, half the damage
+            if (this.isBlocking) {
+                damage /= 2;
+            }
+
+            //Update health
             this.health = Math.max(0, this.health - damage);
 
-            if (this.health <= 0) {
+            //If health is 0 then die
+            if (this.health === 0) {
                 this.die();
             }
         }
