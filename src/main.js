@@ -7,8 +7,9 @@
  * face off in an epic battle. Players use melee attacks, special moves, and
  * defensive blocking to defeat their opponent.
  *
- * Asset sources:
+ * Assets sources:
  * - Sprites: spriters-resource.com
+ * - Backgrounds: open3dlab.com
  * - Sounds: freesound.org, opengameart.org
  * - Font: Google Fonts (Press Start 2P)
  */
@@ -24,8 +25,8 @@ import {
 import TitleScreenState from "./states/game/TitleScreenState.js";
 import ControlsScreenState from "./states/game/ControlsScreenState.js";
 import PlayState from "./states/game/PlayState.js";
-import VictoryState from "./states/game/VictoryState.js";
 import GameStateName from "./enums/GameStateName.js";
+import VictoryScreenState from "./states/game/VictoryScreenState.js";
 
 // Set the dimensions of the play area.
 canvas.width = CANVAS_WIDTH;
@@ -43,7 +44,7 @@ const mapDefinition = await fetch("./config/tilemap.json").then((response) =>
 stateMachine.add(GameStateName.TitleScreen, new TitleScreenState());
 stateMachine.add(GameStateName.ControlsScreen, new ControlsScreenState());
 stateMachine.add(GameStateName.Play, new PlayState(mapDefinition));
-stateMachine.add(GameStateName.Victory, new VictoryState());
+stateMachine.add(GameStateName.Victory, new VictoryScreenState());
 
 stateMachine.change(GameStateName.TitleScreen);
 

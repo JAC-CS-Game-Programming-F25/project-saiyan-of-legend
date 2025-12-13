@@ -2,7 +2,7 @@ const GameStateName = {
     TitleScreen: "title-screen",
     ControlsScreen: "controls-screen",
     Play: "play",
-    Victory: "victory",
+    VictoryScreen: "victory-screen",
 };
 
 export default GameStateName;
