@@ -14,6 +14,7 @@ import FighterJumpingState from "../states/fighter/FighterJumpingState.js";
 import FighterFallingState from "../states/fighter/FighterFallingState.js";
 import FighterAttackingState from "../states/fighter/FighterAttackingState.js";
 import FighterDyingState from "../states/fighter/FighterDyingState.js";
+import Tile from "../services/Tile.js";
 
 export default class Fighter extends Entity {
     static MAX_HEALTH = 100;
@@ -203,6 +204,20 @@ export default class Fighter extends Entity {
     }
 
     /**
+     * Checks if the fighter has fallen off the map.
+     */
+    checkFallOffMap() {
+        //Gets the bottom of the map
+        const mapBottom = this.map.height * Tile.SIZE;
+
+        //Checks if player has fallen below the map and kills it
+        if (this.position.y > mapBottom) {
+            this.health = 0;
+            this.die();
+        }
+    }
+
+    /**
      * Updates the fighter's state.
      *
      * @param {number} dt - The time passed since the last update.
@@ -210,6 +225,7 @@ export default class Fighter extends Entity {
     update(dt) {
         this.stateMachine.update(dt);
         this.updateHitbox();
+        this.checkFallOffMap();
     }
 
     /**
