@@ -1,16 +1,19 @@
 import FighterStateName from "../../enums/FighterStateName.js";
-import { timer } from "../../globals.js";
 import FighterState from "./FighterState.js";
 
-/**
- * The state where a fighter plays their death animation
- * and then the game transitions back to the title screen.
- */
 export default class FighterDyingState extends FighterState {
+    /**
+     * Creates a new FighterAttackingState instance.
+     *
+     * @param {Fighter} fighter - The fighter object.
+     */
     constructor(fighter) {
         super(fighter);
     }
 
+    /**
+     * Called when entering the dying state.
+     */
     enter() {
         this.fighter.currentAnimation = this.fighter.animations.death;
         this.fighter.currentAnimation.refresh();
@@ -25,6 +28,11 @@ export default class FighterDyingState extends FighterState {
         this.fighter.setDimensionsForAnimation("death", 0);
     }
 
+    /**
+     * Updates the dying state.
+     *
+     * @param {number} dt - The time passed since the last update.
+     */
     update(dt) {
         super.update(dt);
 

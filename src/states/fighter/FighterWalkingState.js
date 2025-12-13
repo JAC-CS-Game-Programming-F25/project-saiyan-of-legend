@@ -7,6 +7,7 @@ import FighterStateName from "../../enums/FighterStateName.js";
 export default class FighterWalkingState extends FighterState {
     /**
      * Creates a new FighterWalkingState instance.
+     *
      * @param {Fighter} fighter - The player object.
      */
     constructor(fighter) {
