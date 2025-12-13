@@ -33,7 +33,12 @@ export default class PlayState extends State {
 
         //The game map
         this.map = new Map(mapDefinition);
+    }
 
+    /**
+     * Initializes the play state.
+     */
+    enter() {
         //The fighters
         this.player1 = new Fighter(
             50,
@@ -76,6 +81,9 @@ export default class PlayState extends State {
 
         //Flag to prevent multiple hits at once
         this.isProcessingHit = false;
+
+        //Flag to check if the game is over
+        this.isGameOver = false;
     }
 
     /**
@@ -154,8 +162,9 @@ export default class PlayState extends State {
 
     checkVictory() {
         //Checks if either player is dead
-        if (this.player1.isDead || this.player2.isDead) {
+        if ((this.player1.isDead || this.player2.isDead) && !this.isGameOver) {
             //Waits a bit before going to the title screen
+            this.isGameOver = true;
             timer.addTask(
                 () => {},
                 0,
