@@ -1,3 +1,7 @@
+import {
+    gokuSpriteConfig,
+    vegetaSpriteConfig,
+} from "../../../config/SpriteConfig.js";
 import State from "../../../lib/State.js";
 import Fighter from "../../entities/Fighter.js";
 import ImageName from "../../enums/ImageName.js";
@@ -29,8 +33,26 @@ export default class PlayState extends State {
         this.map = new Map(mapDefinition);
 
         //The fighters
-        this.player1 = new Fighter(50, 174, 31, 52, this.map, 1);
-        this.player2 = new Fighter(470, 174, 23, 50, this.map, 2);
+        this.player1 = new Fighter(
+            50,
+            174,
+            31,
+            52,
+            this.map,
+            gokuSpriteConfig,
+            ImageName.Goku,
+            1
+        );
+        this.player2 = new Fighter(
+            470,
+            174,
+            23,
+            50,
+            this.map,
+            vegetaSpriteConfig,
+            ImageName.Vegeta,
+            2
+        );
 
         //The health bars
         this.player1HealthBar = new HealthBar(
@@ -112,7 +134,7 @@ export default class PlayState extends State {
         this.isProcessingHit = true;
 
         //Deals damage to the victim
-        victim.receiveDamage(5);
+        victim.receiveDamage(50);
 
         //Waits a bit before allowing another hit
         timer.addTask(
