@@ -124,6 +124,18 @@ export default class Fighter extends Entity {
     }
 
     /**
+     * Sets the dimensions of the fighter to match the dimensions of the current animation frame.
+     *
+     * @param {string} animationName - The name of the animation.
+     * @param {number} [frame] - The frame number of the animation.
+     */
+    setDimensionsForAnimation(animationName, frame = 0) {
+        const frames = this.spriteConfig[animationName];
+        this.dimensions.x = frames[frame].width;
+        this.dimensions.y = frames[frame].height;
+    }
+
+    /**
      * Updates the position and dimensions of the fighter's hitbox.
      */
     updateHitbox() {
@@ -133,12 +145,6 @@ export default class Fighter extends Entity {
             this.dimensions.x,
             this.dimensions.y
         );
-    }
-
-    setDimensionsForAnimation(animationName, frame = 0) {
-        const frames = this.spriteConfig[animationName];
-        this.dimensions.x = frames[frame].width;
-        this.dimensions.y = frames[frame].height;
     }
 
     /**
