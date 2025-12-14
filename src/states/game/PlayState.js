@@ -42,9 +42,9 @@ export default class PlayState extends State {
     enter(savedStateData) {
         // Check if we're restoring from a save
         if (savedStateData) {
-            this.restoreFromSave(savedStateData);
+            this.loadFromSave(savedStateData);
         } else {
-            this.startFreshGame();
+            this.startNewGame();
         }
 
         this.isProcessingHit = false;
@@ -52,9 +52,9 @@ export default class PlayState extends State {
     }
 
     /**
-     * Starts a fresh game with default positions and full health
+     * Starts a new game with default positions and full health
      */
-    startFreshGame() {
+    startNewGame() {
         //Creates fighters
         this.player1 = new Fighter(
             50,
@@ -97,9 +97,9 @@ export default class PlayState extends State {
     }
 
     /**
-     * Restores the game state from saved data
+     * Loads the game state from saved data
      */
-    restoreFromSave(savedStateData) {
+    loadFromSave(savedStateData) {
         //Restores fighters
         this.player1 = new Fighter(
             savedStateData.player1.position.x,
