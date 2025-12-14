@@ -51,6 +51,9 @@ export default class FighterIdlingState extends FighterState {
         if (input.isKeyPressed(this.controls.attack)) {
             this.fighter.stateMachine.change(FighterStateName.Attacking);
         }
+        if (input.isKeyPressed(this.controls.special1)) {
+            this.fighter.stateMachine.change(FighterStateName.Special1);
+        }
         if (input.isKeyHeld(this.controls.block)) {
             this.fighter.stateMachine.change(FighterStateName.Blocking);
         }
