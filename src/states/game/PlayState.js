@@ -230,7 +230,7 @@ export default class PlayState extends State {
         this.isProcessingHit = true;
 
         //Deals damage to the victim
-        victim.receiveDamage(50);
+        victim.receiveDamage(attacker.currentMove.damage);
 
         //Waits a bit before allowing another hit
         timer.addTask(

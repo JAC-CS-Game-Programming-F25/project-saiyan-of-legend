@@ -16,6 +16,7 @@ export default class FighterSpecial1State extends FighterState {
      * Called when entering the special1 state.
      */
     enter() {
+        this.fighter.currentMove = this.fighter.moves.beam;
         this.fighter.currentAnimation = this.fighter.animations.special1;
         this.fighter.currentAnimation.refresh();
 
@@ -34,7 +35,7 @@ export default class FighterSpecial1State extends FighterState {
      * Called when exiting the special1 state.
      */
     exit() {
-        this.fighter.clearAttackHitbox();
+        this.clearAttackHitbox();
 
         //Reset the position
         this.fighter.position.x = this.originalX;
@@ -70,16 +71,23 @@ export default class FighterSpecial1State extends FighterState {
             }
         }
     }
+
     /**
      * Sets the attack hitbox for the beam frame of the special1 animation.
      */
-
     setBeamHitbox() {
-        this.fighter.attackHitbox.set(
+        this.fighter.currentMove.hitbox.set(
             this.fighter.position.x,
             this.fighter.position.y,
             this.fighter.dimensions.x,
             this.fighter.dimensions.y
         );
+    }
+
+    /**
+     * Clears the attack hitbox by setting its position and dimensions to zero.
+     */
+    clearAttackHitbox() {
+        this.fighter.currentMove.hitbox.set(0, 0, 0, 0);
     }
 }
