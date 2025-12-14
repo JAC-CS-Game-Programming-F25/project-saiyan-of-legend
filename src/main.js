@@ -27,6 +27,7 @@ import ControlsScreenState from "./states/game/ControlsScreenState.js";
 import PlayState from "./states/game/PlayState.js";
 import GameStateName from "./enums/GameStateName.js";
 import VictoryScreenState from "./states/game/VictoryScreenState.js";
+import GameStateManager from "./services/GameStateManager.js";
 
 // Set the dimensions of the play area.
 canvas.width = CANVAS_WIDTH;
@@ -44,9 +45,32 @@ const mapDefinition = await fetch("./config/tilemap.json").then((response) =>
 stateMachine.add(GameStateName.TitleScreen, new TitleScreenState());
 stateMachine.add(GameStateName.ControlsScreen, new ControlsScreenState());
 stateMachine.add(GameStateName.Play, new PlayState(mapDefinition));
-stateMachine.add(GameStateName.Victory, new VictoryScreenState());
+stateMachine.add(GameStateName.VictoryScreen, new VictoryScreenState());
 
-stateMachine.change(GameStateName.TitleScreen);
+//Gets the saved state
+const savedState = GameStateManager.load();
+
+//Changes the game state based on the saved state
+if (savedState) {
+    switch (savedState.stateName) {
+        case GameStateName.Play:
+            stateMachine.change(GameStateName.Play, savedState.stateData);
+            break;
+        case GameStateName.VictoryScreen:
+            stateMachine.change(
+                GameStateName.VictoryScreen,
+                savedState.stateData
+            );
+            break;
+        case GameStateName.ControlsScreen:
+            stateMachine.change(GameStateName.ControlsScreen);
+            break;
+        default:
+            stateMachine.change(GameStateName.TitleScreen);
+    }
+} else {
+    stateMachine.change(GameStateName.TitleScreen);
+}
 
 const game = new Game(stateMachine, context, canvas.width, canvas.height);
 
