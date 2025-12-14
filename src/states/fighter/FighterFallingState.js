@@ -19,6 +19,9 @@ export default class FighterFallingState extends FighterState {
     enter() {
         this.fighter.currentAnimation = this.fighter.animations.fall;
         this.fighter.currentAnimation.refresh();
+
+        //Sets the falling animation dimensions
+        this.fighter.setDimensionsForAnimation("fall", 0);
     }
 
     /**
@@ -53,6 +56,9 @@ export default class FighterFallingState extends FighterState {
     handleInput() {
         if (input.isKeyPressed(this.controls.attack)) {
             this.fighter.stateMachine.change(FighterStateName.Attacking);
+        }
+        if (input.isKeyPressed(this.controls.special1)) {
+            this.fighter.stateMachine.change(FighterStateName.Special1);
         }
         if (input.isKeyHeld(this.controls.block)) {
             this.fighter.stateMachine.change(FighterStateName.Blocking);

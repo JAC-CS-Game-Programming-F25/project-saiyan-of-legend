@@ -6,6 +6,7 @@ const FighterStateName = {
     Dying: "dying",
     Blocking: "blocking",
     Attacking: "attacking",
+    Special1: "special1",
 };
 
 export default FighterStateName;
