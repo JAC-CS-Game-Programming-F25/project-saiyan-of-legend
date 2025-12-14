@@ -8,10 +8,12 @@ import {
     CANVAS_WIDTH,
     images,
     input,
+    sounds,
     stateMachine,
 } from "../../globals.js";
 import Game from "../../../lib/Game.js";
 import GameManager from "../../services/GameManager.js";
+import SoundName from "../../enums/SoundName.js";
 
 export default class ControlsScreenState extends State {
     /**
@@ -33,15 +35,13 @@ export default class ControlsScreenState extends State {
     enter() {
         //Saves the controls screen state
         GameManager.saveControlsScreen();
-
-        //sounds.play()
     }
 
     /**
      * Called when the controls screen state is exited.
      */
     exit() {
-        //sounds.stop()
+        sounds.stop(SoundName.MainTheme);
     }
 
     /**

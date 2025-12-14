@@ -7,10 +7,12 @@ import {
     CANVAS_WIDTH,
     images,
     input,
+    sounds,
     stateMachine,
 } from "../../globals.js";
 import Colour from "../../enums/Colour.js";
 import GameManager from "../../services/GameManager.js";
+import SoundName from "../../enums/SoundName.js";
 
 export default class TitleScreenState extends State {
     /**
@@ -27,7 +29,8 @@ export default class TitleScreenState extends State {
         //Saves the title screen state
         GameManager.saveTitleScreen();
 
-        //sounds.play()
+        //Plays the main theme
+        sounds.play(SoundName.MainTheme);
     }
 
     /**

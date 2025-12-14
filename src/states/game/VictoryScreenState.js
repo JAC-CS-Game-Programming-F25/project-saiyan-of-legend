@@ -6,11 +6,13 @@ import {
     CANVAS_WIDTH,
     images,
     input,
+    sounds,
     stateMachine,
 } from "../../globals.js";
 import Input from "../../../lib/Input.js";
 import Colour from "../../enums/Colour.js";
 import GameManager from "../../services/GameManager.js";
+import SoundName from "../../enums/SoundName.js";
 
 export default class VictoryScreenState extends State {
     constructor() {
@@ -28,6 +30,10 @@ export default class VictoryScreenState extends State {
             this.player1Wins,
             this.player2Wins
         );
+    }
+
+    exit() {
+        sounds.stop(SoundName.BattleTheme);
     }
 
     update() {
