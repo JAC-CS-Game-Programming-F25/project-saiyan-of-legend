@@ -10,7 +10,7 @@ import {
     stateMachine,
 } from "../../globals.js";
 import Colour from "../../enums/Colour.js";
-import GameStateManager from "../../services/GameStateManager.js";
+import GameManager from "../../services/GameManager.js";
 
 export default class TitleScreenState extends State {
     /**
@@ -25,7 +25,7 @@ export default class TitleScreenState extends State {
      */
     enter() {
         //Saves the title screen state
-        GameStateManager.saveTitleScreen();
+        GameManager.saveTitleScreen();
 
         //sounds.play()
     }

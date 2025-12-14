@@ -48,6 +48,7 @@ export default class Fighter extends Entity {
         this.isInvincible = false;
         this.isDead = false;
         this.isBlocking = false;
+        this.wins = 0;
 
         //Sets the fighter's facing direction
         if (playerNumber === 1) {

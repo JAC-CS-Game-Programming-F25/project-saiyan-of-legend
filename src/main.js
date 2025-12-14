@@ -27,7 +27,7 @@ import ControlsScreenState from "./states/game/ControlsScreenState.js";
 import PlayState from "./states/game/PlayState.js";
 import GameStateName from "./enums/GameStateName.js";
 import VictoryScreenState from "./states/game/VictoryScreenState.js";
-import GameStateManager from "./services/GameStateManager.js";
+import GameManager from "./services/GameManager.js";
 
 // Set the dimensions of the play area.
 canvas.width = CANVAS_WIDTH;
@@ -48,7 +48,7 @@ stateMachine.add(GameStateName.Play, new PlayState(mapDefinition));
 stateMachine.add(GameStateName.VictoryScreen, new VictoryScreenState());
 
 //Gets the saved state
-const savedState = GameStateManager.load();
+const savedState = GameManager.load();
 
 //Changes the game state based on the saved state
 if (savedState) {
