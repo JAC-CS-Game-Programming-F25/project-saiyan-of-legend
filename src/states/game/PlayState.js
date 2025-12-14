@@ -14,7 +14,7 @@ import {
     stateMachine,
     timer,
 } from "../../globals.js";
-import GameStateManager from "../../services/GameStateManager.js";
+import GameManager from "../../services/GameManager.js";
 import Map from "../../services/Map.js";
 import HealthBar from "../../user-interface/HealthBar.js";
 
@@ -46,6 +46,11 @@ export default class PlayState extends State {
         } else {
             this.startNewGame();
         }
+
+        //Restores wins
+        const savedWins = GameManager.loadWins();
+        this.player1.wins = savedWins.player1Wins;
+        this.player2.wins = savedWins.player2Wins;
 
         this.isProcessingHit = false;
         this.isGameOver = false;
@@ -184,7 +189,7 @@ export default class PlayState extends State {
 
         //Saves the play state
         if (!this.isGameOver) {
-            GameStateManager.savePlayState(this.player1, this.player2);
+            GameManager.savePlayState(this.player1, this.player2);
         }
     }
 
@@ -248,6 +253,7 @@ export default class PlayState extends State {
 
             //Determines the winner
             const winner = this.player1.isDead ? this.player2 : this.player1;
+            winner.wins++;
 
             //Waits 2 seconds before transitioning to the victory state
             timer.addTask(
@@ -257,7 +263,8 @@ export default class PlayState extends State {
                 () => {
                     stateMachine.change(GameStateName.VictoryScreen, {
                         winnerName: winner.name,
-                        winnerNumber: winner.playerNumber,
+                        player1Wins: this.player1.wins,
+                        player2Wins: this.player2.wins,
                     });
                 }
             );

@@ -11,7 +11,7 @@ import {
     stateMachine,
 } from "../../globals.js";
 import Game from "../../../lib/Game.js";
-import GameStateManager from "../../services/GameStateManager.js";
+import GameManager from "../../services/GameManager.js";
 
 export default class ControlsScreenState extends State {
     /**
@@ -32,7 +32,7 @@ export default class ControlsScreenState extends State {
      */
     enter() {
         //Saves the controls screen state
-        GameStateManager.saveControlsScreen();
+        GameManager.saveControlsScreen();
 
         //sounds.play()
     }

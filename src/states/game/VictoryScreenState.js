@@ -10,27 +10,24 @@ import {
 } from "../../globals.js";
 import Input from "../../../lib/Input.js";
 import Colour from "../../enums/Colour.js";
-import GameStateManager from "../../services/GameStateManager.js";
+import GameManager from "../../services/GameManager.js";
 
 export default class VictoryScreenState extends State {
     constructor() {
         super();
-        this.winnerName = "";
-        this.winnerNumber = 0;
     }
 
     enter(params) {
         this.winnerName = params.winnerName;
-        this.winnerNumber = params.winnerNumber;
+        this.player1Wins = params.player1Wins;
+        this.player2Wins = params.player2Wins;
 
-        //Saves the victory screen state
-        GameStateManager.saveVictoryScreen(this.winnerName, this.winnerNumber);
-
-        //sounds.play
-    }
-
-    exit() {
-        // sounds.stop
+        //Saves the victory state
+        GameManager.saveVictoryScreen(
+            this.winnerName,
+            this.player1Wins,
+            this.player2Wins
+        );
     }
 
     update() {
@@ -52,31 +49,44 @@ export default class VictoryScreenState extends State {
         context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
         context.save();
-        context.textAlign = "center";
         context.textBaseline = "middle";
+        context.textAlign = "center";
 
-        //Displays the winner
+        const leftX = CANVAS_WIDTH / 6;
+        const rightX = (CANVAS_WIDTH * 5) / 6;
+        const centerY = CANVAS_HEIGHT / 2;
+
+        //Displays the winners name and that they won
         context.font = "24px PressStart2P";
         context.fillStyle = Colour.Gold;
         context.fillText(
-            `P${this.winnerNumber}: ${this.winnerName.toUpperCase()}`,
+            this.winnerName.toUpperCase(),
             CANVAS_WIDTH / 2,
-            CANVAS_HEIGHT / 2 - 40
+            centerY - 40
         );
-        context.fillText("WINS", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 10);
+        context.font = "24px PressStart2P";
+        context.fillStyle = Colour.Gold;
+        context.fillText("WINS", CANVAS_WIDTH / 2, centerY + 10);
 
-        //Displays "Press F for Rematch"
-        context.font = "14px PressStart2P";
         context.fillStyle = Colour.White;
+
+        //Displays the number of wins for player 1
+        context.fillText("P1", leftX, centerY - 40);
+        context.fillText(this.player1Wins, leftX, centerY + 10);
+
+        //Displays the number of wins for player 2
+        context.fillText("P2", rightX, centerY - 40);
+        context.fillText(this.player2Wins, rightX, centerY + 10);
+
+        //Displays the controls to continue
+        context.font = "14px PressStart2P";
         context.fillText(
-            "Press F To Rematch",
+            "Press F for Rematch",
             CANVAS_WIDTH / 2,
             CANVAS_HEIGHT - 80
         );
-
-        //Displays "Press Enter for Title"
         context.fillText(
-            "Press Enter To Return To Title",
+            "Press Enter for Title",
             CANVAS_WIDTH / 2,
             CANVAS_HEIGHT - 50
         );
