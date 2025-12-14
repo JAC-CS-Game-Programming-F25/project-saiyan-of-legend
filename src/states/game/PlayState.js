@@ -14,6 +14,7 @@ import {
     stateMachine,
     timer,
 } from "../../globals.js";
+import GameStateManager from "../../services/GameStateManager.js";
 import Map from "../../services/Map.js";
 import HealthBar from "../../user-interface/HealthBar.js";
 
@@ -38,8 +39,23 @@ export default class PlayState extends State {
     /**
      * Initializes the play state.
      */
-    enter() {
-        //The fighters
+    enter(savedStateData) {
+        // Check if we're restoring from a save
+        if (savedStateData) {
+            this.restoreFromSave(savedStateData);
+        } else {
+            this.startFreshGame();
+        }
+
+        this.isProcessingHit = false;
+        this.isGameOver = false;
+    }
+
+    /**
+     * Starts a fresh game with default positions and full health
+     */
+    startFreshGame() {
+        //Creates fighters
         this.player1 = new Fighter(
             50,
             174,
@@ -61,7 +77,7 @@ export default class PlayState extends State {
             2
         );
 
-        //The health bars
+        //Creates health bars
         this.player1HealthBar = new HealthBar(
             50,
             20,
@@ -78,12 +94,69 @@ export default class PlayState extends State {
             Fighter.MAX_HEALTH,
             HealthBar.PLAYER2_LABEL
         );
+    }
 
-        //Flag to prevent multiple hits at once
-        this.isProcessingHit = false;
+    /**
+     * Restores the game state from saved data
+     */
+    restoreFromSave(savedStateData) {
+        //Restores fighters
+        this.player1 = new Fighter(
+            savedStateData.player1.position.x,
+            savedStateData.player1.position.y,
+            31,
+            52,
+            this.map,
+            gokuSpriteConfig,
+            ImageName.Goku,
+            1
+        );
+        this.player2 = new Fighter(
+            savedStateData.player2.position.x,
+            savedStateData.player2.position.y,
+            23,
+            50,
+            this.map,
+            vegetaSpriteConfig,
+            ImageName.Vegeta,
+            2
+        );
 
-        //Flag to check if the game is over
-        this.isGameOver = false;
+        //Restores fighter properties
+        this.player1.health = savedStateData.player1.health;
+        this.player1.velocity.x = savedStateData.player1.velocity.x;
+        this.player1.velocity.y = savedStateData.player1.velocity.y;
+        this.player1.isFacingRight = savedStateData.player1.isFacingRight;
+        this.player1.stateMachine.change(
+            savedStateData.player1.currentStateName
+        );
+
+        this.player2.health = savedStateData.player2.health;
+        this.player2.velocity.x = savedStateData.player2.velocity.x;
+        this.player2.velocity.y = savedStateData.player2.velocity.y;
+        this.player2.isFacingRight = savedStateData.player2.isFacingRight;
+        this.player2.stateMachine.change(
+            savedStateData.player2.currentStateName
+        );
+
+        //Creates health bars
+        this.player1HealthBar = new HealthBar(
+            50,
+            20,
+            150,
+            10,
+            Fighter.MAX_HEALTH,
+            HealthBar.PLAYER1_LABEL
+        );
+
+        this.player2HealthBar = new HealthBar(
+            360,
+            20,
+            150,
+            10,
+            Fighter.MAX_HEALTH,
+            HealthBar.PLAYER2_LABEL
+        );
     }
 
     /**
@@ -108,6 +181,11 @@ export default class PlayState extends State {
 
         //Checks if either player is dead
         this.checkVictory();
+
+        //Saves the play state
+        if (!this.isGameOver) {
+            GameStateManager.savePlayState(this.player1, this.player2);
+        }
     }
 
     /**
@@ -177,7 +255,7 @@ export default class PlayState extends State {
                 0,
                 2,
                 () => {
-                    stateMachine.change(GameStateName.Victory, {
+                    stateMachine.change(GameStateName.VictoryScreen, {
                         winnerName: winner.name,
                         winnerNumber: winner.playerNumber,
                     });

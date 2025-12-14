@@ -10,6 +10,7 @@ import {
 } from "../../globals.js";
 import Input from "../../../lib/Input.js";
 import Colour from "../../enums/Colour.js";
+import GameStateManager from "../../services/GameStateManager.js";
 
 export default class VictoryScreenState extends State {
     constructor() {
@@ -21,6 +22,9 @@ export default class VictoryScreenState extends State {
     enter(params) {
         this.winnerName = params.winnerName;
         this.winnerNumber = params.winnerNumber;
+
+        //Saves the victory screen state
+        GameStateManager.saveVictoryScreen(this.winnerName, this.winnerNumber);
 
         //sounds.play
     }
