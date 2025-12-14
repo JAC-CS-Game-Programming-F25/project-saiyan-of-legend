@@ -14,7 +14,8 @@ export default class Move {
         this.name = name;
         this.damage = damage;
 
-        //Stores the hitbox offsets
+        //Stores the hitbox abd its offsets
+        this.hitbox = new Hitbox(0, 0, 0, 0, Colour.Blue);
         this.hitboxOffsetsRight = new Hitbox(
             hitboxOffsetsRight.x,
             hitboxOffsetsRight.y,
