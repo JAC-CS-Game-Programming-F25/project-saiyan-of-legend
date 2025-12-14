@@ -1,7 +1,8 @@
 import GameStateName from "../enums/GameStateName.js";
 
-export default class GameStateManager {
-    static KEY = "dragonball-game";
+export default class GameManager {
+    static STATE_KEY = "dragonball-game-state";
+    static WINS_KEY = "dragonball-wins";
 
     /**
      * Saves the current game state to sessionStorage.
@@ -19,7 +20,7 @@ export default class GameStateManager {
         //Tries to saves the game state
         try {
             sessionStorage.setItem(
-                GameStateManager.KEY,
+                GameManager.STATE_KEY,
                 JSON.stringify(saveData)
             );
         } catch (error) {
@@ -36,7 +37,7 @@ export default class GameStateManager {
         //Tries to load the game state
         try {
             //Retrieves the saved game state
-            const savedData = sessionStorage.getItem(GameStateManager.KEY);
+            const savedData = sessionStorage.getItem(GameManager.STATE_KEY);
 
             //If there is no saved state, returns null
             if (!savedData) {
@@ -81,33 +82,75 @@ export default class GameStateManager {
         };
 
         //Saves the play state
-        GameStateManager.save(GameStateName.Play, playStateData);
+        GameManager.save(GameStateName.Play, playStateData);
+
+        //Saves the wins
+        GameManager.saveWins(player1.wins, player2.wins);
     }
 
     /**
      * Saves TitleScreen state.
      */
     static saveTitleScreen() {
-        GameStateManager.save(GameStateName.TitleScreen, {});
+        GameManager.save(GameStateName.TitleScreen, {});
     }
 
     /**
      * Saves ControlsScreen state.
      */
     static saveControlsScreen() {
-        GameStateManager.save(GameStateName.ControlsScreen, {});
+        GameManager.save(GameStateName.ControlsScreen, {});
     }
 
     /**
-     * Saves VictoryScreen state.
+     * Saves the victory state of the game.
      *
-     * @param {string} winnerName - The name of the winner.
-     * @param {number} winnerNumber - The player number of the winner.
+     * @param {string} winnerName - The name of the winning player.
+     * @param {number} player1Wins - The number of wins of the first player.
+     * @param {number} player2Wins - The number of wins of the second player.
      */
-    static saveVictoryScreen(winnerName, winnerNumber) {
-        GameStateManager.save(GameStateName.VictoryScreen, {
+    static saveVictoryScreen(winnerName, player1Wins, player2Wins) {
+        GameManager.save(GameStateName.VictoryScreen, {
             winnerName: winnerName,
-            winnerNumber: winnerNumber,
+            player1Wins: player1Wins,
+            player2Wins: player2Wins,
         });
+
+        GameManager.saveWins(player1Wins, player2Wins);
+    }
+
+    /**
+     * Saves just the wins
+     */
+    static saveWins(player1Wins, player2Wins) {
+        try {
+            sessionStorage.setItem(
+                GameManager.WINS_KEY,
+                JSON.stringify({
+                    player1Wins: player1Wins,
+                    player2Wins: player2Wins,
+                })
+            );
+        } catch (error) {
+            console.error("Failed to save wins:", error);
+        }
+    }
+
+    /**
+     * Loads the saved wins
+     */
+    static loadWins() {
+        try {
+            const savedWins = sessionStorage.getItem(GameManager.WINS_KEY);
+
+            if (!savedWins) {
+                return { player1Wins: 0, player2Wins: 0 };
+            }
+
+            return JSON.parse(savedWins);
+        } catch (error) {
+            console.error("Failed to load wins:", error);
+            return { player1Wins: 0, player2Wins: 0 };
+        }
     }
 }
