@@ -7,7 +7,7 @@ export default class MoveFactory {
      *
      * @param {number} fighterWidth - The width of the fighter sprite.
      * @param {number} fighterHeight - The height of the fighter sprite.
-     * @returns {Move} - A punch move.
+     * @returns {Move} A punch move.
      */
     static createPunch(fighterWidth, fighterHeight) {
         return new Move(
@@ -33,7 +33,7 @@ export default class MoveFactory {
      *
      * @param {number} fighterWidth - The width of the fighter sprite.
      * @param {number} fighterHeight - The height of the fighter sprite.
-     * @returns {Move} - A beam move.
+     * @returns {Move} A beam move.
      */
     static createBeamAttack(fighterWidth, fighterHeight) {
         return new Move(
