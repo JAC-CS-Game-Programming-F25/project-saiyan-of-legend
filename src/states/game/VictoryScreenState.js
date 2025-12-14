@@ -81,12 +81,12 @@ export default class VictoryScreenState extends State {
         //Displays the controls to continue
         context.font = "14px PressStart2P";
         context.fillText(
-            "Press F for Rematch",
+            "Press F For Rematch",
             CANVAS_WIDTH / 2,
             CANVAS_HEIGHT - 80
         );
         context.fillText(
-            "Press Enter for Title",
+            "Press Enter For Title Screen",
             CANVAS_WIDTH / 2,
             CANVAS_HEIGHT - 50
         );
