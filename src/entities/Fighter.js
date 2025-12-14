@@ -16,6 +16,7 @@ import FighterAttackingState from "../states/fighter/FighterAttackingState.js";
 import FighterDyingState from "../states/fighter/FighterDyingState.js";
 import Tile from "../services/Tile.js";
 import FighterBlockingState from "../states/fighter/FighterBlockingState.js";
+import FighterSpecial1State from "../states/fighter/FighterSpecial1State.js";
 
 export default class Fighter extends Entity {
     static MAX_HEALTH = 100;
@@ -110,6 +111,10 @@ export default class Fighter extends Entity {
             new FighterAttackingState(this)
         );
         this.stateMachine.add(
+            FighterStateName.Special1,
+            new FighterSpecial1State(this)
+        );
+        this.stateMachine.add(
             FighterStateName.Idling,
             new FighterIdlingState(this)
         );
@@ -128,6 +133,7 @@ export default class Fighter extends Entity {
             death: new Animation(this.sprites.death, 0.25, 1),
             block: new Animation(this.sprites.block, 0.1, 1),
             attack: new Animation(this.sprites.attack, 0.1, 1),
+            special1: new Animation(this.sprites.special1, 0.3, 1),
         };
     }
 

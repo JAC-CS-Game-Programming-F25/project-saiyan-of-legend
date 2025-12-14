@@ -30,6 +30,18 @@ export const gokuSpriteConfig = {
         { x: 165, y: 446, width: 46, height: 47 },
         {},
     ],
+    special1: [
+        { x: 397, y: 931, width: 53, height: 52 },
+        { x: 468, y: 926, width: 49, height: 57 },
+        { x: 535, y: 922, width: 44, height: 61 },
+        { x: 600, y: 905, width: 63, height: 78 },
+        //{ x: 682, y: 928, width: 23, height: 55 },
+        { x: 173, y: 1046, width: 32, height: 51 },
+        { x: 215, y: 1037, width: 64, height: 61 },
+        // { x: 353, y: 1047, width: 38, height: 51 },
+        { x: 412, y: 1006, width: 419, height: 128 },
+        {},
+    ],
 };
 
 export const vegetaSpriteConfig = {
@@ -59,6 +71,16 @@ export const vegetaSpriteConfig = {
         { x: 204, y: 438, width: 33, height: 44 },
         { x: 247, y: 436, width: 41, height: 46 },
         { x: 296, y: 436, width: 41, height: 46 },
+        {},
+    ],
+    special1: [
+        { x: 397, y: 1065, width: 53, height: 48 },
+        { x: 468, y: 1060, width: 49, height: 53 },
+        { x: 532, y: 1057, width: 44, height: 55 },
+        { x: 600, y: 1036, width: 63, height: 77 },
+        { x: 264, y: 1522, width: 42, height: 49 },
+        { x: 362, y: 1514, width: 68, height: 68 },
+        { x: 448, y: 1457, width: 503, height: 181 },
         {},
     ],
 };
