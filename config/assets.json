@@ -37,5 +37,20 @@
             "path": "./assets/fonts/PressStart2P.ttf"
         }
     ],
-    "sounds": []
+    "sounds": [
+        {
+            "name": "main_theme",
+            "path": "./assets/sounds/main_theme.mp3",
+            "size": 1,
+            "volume": 0.5,
+            "loop": true
+        },
+        {
+            "name": "battle_theme",
+            "path": "./assets/sounds/battle_theme.mp3",
+            "size": 1,
+            "volume": 0.25,
+            "loop": true
+        }
+    ]
 }
