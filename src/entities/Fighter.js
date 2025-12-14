@@ -17,6 +17,7 @@ import FighterDyingState from "../states/fighter/FighterDyingState.js";
 import Tile from "../services/Tile.js";
 import FighterBlockingState from "../states/fighter/FighterBlockingState.js";
 import FighterSpecial1State from "../states/fighter/FighterSpecial1State.js";
+import MoveFactory from "../services/MoveFactory.js";
 
 export default class Fighter extends Entity {
     static MAX_HEALTH = 100;
@@ -68,20 +69,18 @@ export default class Fighter extends Entity {
         //Sets the fighter's current animation to idle
         this.currentAnimation = this.animations.idle;
 
-        //Sets the fighter's attack hitbox and offsets for right and left attacks
-        this.attackHitbox = new Hitbox(0, 0, 0, 0, Colour.Blue);
-        this.attackHitboxOffsetsRight = new Hitbox(
-            this.dimensions.x,
-            this.dimensions.y * 0.2,
-            20,
-            this.dimensions.y * 0.6
-        );
-        this.attackHitboxOffsetsLeft = new Hitbox(
-            -10,
-            this.dimensions.y * 0.2,
-            20,
-            this.dimensions.y * 0.6
-        );
+        //Sets the fighter's moves
+        this.moves = {
+            punch: MoveFactory.createPunch(
+                this.dimensions.x,
+                this.dimensions.y
+            ),
+            beam: MoveFactory.createBeamAttack(
+                this.dimensions.x,
+                this.dimensions.y
+            ),
+        };
+        this.currentMove = null;
 
         //Initialize state machine for fighter behavior
         this.stateMachine = new StateMachine();
@@ -163,36 +162,13 @@ export default class Fighter extends Entity {
     }
 
     /**
-     * Sets the fighter's attack hitbox
-     */
-    setAttackHitbox() {
-        const offset = this.isFacingRight
-            ? this.attackHitboxOffsetsRight
-            : this.attackHitboxOffsetsLeft;
-
-        this.attackHitbox.set(
-            this.position.x + offset.position.x,
-            this.position.y + offset.position.y,
-            offset.dimensions.x,
-            offset.dimensions.y
-        );
-    }
-
-    /**
-     * Clears the attack hitbox by setting its position and dimensions to zero.
-     */
-    clearAttackHitbox() {
-        this.attackHitbox.set(0, 0, 0, 0);
-    }
-
-    /**
      * Checks if the fighter's attack hitbox collides with the target's hitbox.
      *
      * @param {Fighter} target - The target fighter to check collision with.
      * @returns {boolean} True if the attack hitbox collides with the target's hitbox, false otherwise.
      */
     attackHitboxCollidesWith(target) {
-        return this.attackHitbox.didCollide(target.hitbox);
+        return this.currentMove?.hitbox.didCollide(target.hitbox);
     }
 
     /**
@@ -260,7 +236,7 @@ export default class Fighter extends Entity {
 
         if (DEBUG) {
             this.hitbox.render(context);
-            this.attackHitbox.render(context);
+            this.currentMove?.hitbox.render(context);
         }
     }
 }

@@ -16,6 +16,8 @@ export default class FighterAttackingState extends FighterState {
      * Called when entering the attacking state.
      */
     enter() {
+        this.fighter.currentMove = this.fighter.moves.punch;
+
         this.fighter.currentAnimation = this.fighter.animations.attack;
         this.fighter.currentAnimation.refresh();
 
@@ -24,8 +26,11 @@ export default class FighterAttackingState extends FighterState {
         this.fighter.position.y += 5;
     }
 
+    /**
+     * Clears the attack hitbox by setting its position and dimensions to zero.
+     */
     exit() {
-        this.fighter.clearAttackHitbox();
+        this.clearAttackHitbox();
     }
 
     /**
@@ -36,7 +41,7 @@ export default class FighterAttackingState extends FighterState {
     update(dt) {
         super.update(dt);
 
-        this.fighter.setAttackHitbox();
+        this.setAttackHitbox();
 
         if (this.fighter.currentAnimation.isDone()) {
             if (this.fighter.isOnGround) {
@@ -45,5 +50,28 @@ export default class FighterAttackingState extends FighterState {
                 this.fighter.stateMachine.change(FighterStateName.Falling);
             }
         }
+    }
+
+    /**
+     * Sets the attack hitbox for the current move.
+     *
+     */
+    setAttackHitbox() {
+        const offset = this.fighter.currentMove.getHitboxOffset(
+            this.fighter.isFacingRight
+        );
+        this.fighter.currentMove.hitbox.set(
+            this.fighter.position.x + offset.position.x,
+            this.fighter.position.y + offset.position.y,
+            offset.dimensions.x,
+            offset.dimensions.y
+        );
+    }
+
+    /**
+     * Clears the attack hitbox by setting its position and dimensions to zero.
+     */
+    clearAttackHitbox() {
+        this.fighter.currentMove.hitbox.set(0, 0, 0, 0);
     }
 }
