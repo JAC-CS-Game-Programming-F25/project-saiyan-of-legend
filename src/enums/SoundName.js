@@ -7,6 +7,8 @@ const SoundName = {
     PowerUp: "power_up",
     Kamehameha: "kamehameha",
     FinalFlash: "final_flash",
+    GokuWin: "goku_win",
+    VegetaWin: "vegeta_win",
 };
 
 export default SoundName;
