@@ -87,6 +87,18 @@
             "path": "./assets/sounds/final_flash.mp3",
             "size": 1,
             "volume": 0.8
+        },
+        {
+            "name": "goku_win",
+            "path": "./assets/sounds/goku_win.mp3",
+            "size": 1,
+            "volume": 1
+        },
+        {
+            "name": "vegeta_win",
+            "path": "./assets/sounds/vegeta_win.mp3",
+            "size": 1,
+            "volume": 1
         }
     ]
 }

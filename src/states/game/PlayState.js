@@ -263,11 +263,16 @@ export default class PlayState extends State {
             const winner = this.player1.isDead ? this.player2 : this.player1;
             winner.wins++;
 
+            //Plays a victory sound
+            this.player1.isDead
+                ? sounds.play(SoundName.VegetaWin)
+                : sounds.play(SoundName.GokuWin);
+
             //Waits 2 seconds before transitioning to the victory state
             timer.addTask(
                 () => {},
                 0,
-                2,
+                3,
                 () => {
                     stateMachine.change(GameStateName.VictoryScreen, {
                         winnerName: winner.name,
