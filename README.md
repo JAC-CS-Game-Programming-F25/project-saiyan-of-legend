@@ -166,7 +166,7 @@ All fonts are free and from Google Fonts.
 
 ### 🔊 Sounds
 
-Sounds will be taken from freesound.org and opengameart.org for the effects and background music.
+Sounds will be taken from 101soundboards.com for the effects and background music.
 
 ## 📚 References
 
