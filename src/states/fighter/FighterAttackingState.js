@@ -1,5 +1,7 @@
 import Fighter from "../../entities/Fighter.js";
 import FighterStateName from "../../enums/FighterStateName.js";
+import SoundName from "../../enums/SoundName.js";
+import { sounds } from "../../globals.js";
 import FighterState from "./FighterState.js";
 
 export default class FighterAttackingState extends FighterState {
@@ -16,6 +18,8 @@ export default class FighterAttackingState extends FighterState {
      * Called when entering the attacking state.
      */
     enter() {
+        sounds.play(SoundName.Hit);
+
         this.fighter.currentMove = this.fighter.moves.punch;
 
         this.fighter.currentAnimation = this.fighter.animations.attack;

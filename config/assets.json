@@ -37,5 +37,44 @@
             "path": "./assets/fonts/PressStart2P.ttf"
         }
     ],
-    "sounds": []
+    "sounds": [
+        {
+            "name": "main_theme",
+            "path": "./assets/sounds/main_theme.mp3",
+            "size": 1,
+            "volume": 0.2,
+            "loop": true
+        },
+        {
+            "name": "battle_theme",
+            "path": "./assets/sounds/battle_theme.mp3",
+            "size": 1,
+            "volume": 0.2,
+            "loop": true
+        },
+        {
+            "name": "hit",
+            "path": "./assets/sounds/hit.mp3",
+            "size": 4,
+            "volume": 1
+        },
+        {
+            "name": "power_up",
+            "path": "./assets/sounds/power_up.mp3",
+            "size": 2,
+            "volume": 1
+        },
+        {
+            "name": "kamehameha",
+            "path": "./assets/sounds/kamehameha.mp3",
+            "size": 2,
+            "volume": 1
+        },
+        {
+            "name": "final_flash",
+            "path": "./assets/sounds/final_flash.mp3",
+            "size": 1,
+            "volume": 0.4
+        }
+    ]
 }

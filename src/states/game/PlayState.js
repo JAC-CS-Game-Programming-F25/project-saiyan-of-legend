@@ -6,11 +6,13 @@ import State from "../../../lib/State.js";
 import Fighter from "../../entities/Fighter.js";
 import GameStateName from "../../enums/GameStateName.js";
 import ImageName from "../../enums/ImageName.js";
+import SoundName from "../../enums/SoundName.js";
 import {
     canvas,
     CANVAS_HEIGHT,
     CANVAS_WIDTH,
     images,
+    sounds,
     stateMachine,
     timer,
 } from "../../globals.js";
@@ -40,7 +42,9 @@ export default class PlayState extends State {
      * Initializes the play state.
      */
     enter(savedStateData) {
-        // Check if we're restoring from a save
+        sounds.play(SoundName.BattleTheme);
+
+        //Checks if we're restoring from a save
         if (savedStateData) {
             this.loadFromSave(savedStateData);
         } else {
@@ -54,6 +58,10 @@ export default class PlayState extends State {
 
         this.isProcessingHit = false;
         this.isGameOver = false;
+    }
+
+    exit() {
+        sounds.pause(SoundName.BattleTheme);
     }
 
     /**
