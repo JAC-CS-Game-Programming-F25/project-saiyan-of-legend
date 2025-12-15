@@ -1,6 +1,8 @@
 import { roundedRectangle } from "../../lib/Drawing.js";
+import Easing from "../../lib/Easing.js";
 import Vector from "../../lib/Vector.js";
 import Colour from "../enums/Colour.js";
+import { timer } from "../globals.js";
 import Tile from "../services/Tile.js";
 
 export default class HealthBar {
@@ -17,6 +19,7 @@ export default class HealthBar {
      * @param {string} label - The label of the HealthBar.
      */
     constructor(x, y, width, height, maxValue, label) {
+        //Sets position and dimensions
         this.position = new Vector(x * Tile.SIZE, y * Tile.SIZE);
         this.dimensions = new Vector(width * Tile.SIZE, height * Tile.SIZE);
 
@@ -30,17 +33,32 @@ export default class HealthBar {
         this.currentValue = maxValue;
         this.maxValue = maxValue;
 
+        //Sets display value
+        this.displayValue = maxValue;
+
         //Sets label
         this.label = label;
     }
 
     /**
-     * Updates the current value of the HealthBar to the given value.
-     * @param {number} currentValue - The new current value of the HealthBar.
+     * Updates the health bar's target value and tweens to it.
+     *
+     * @param {number} newValue - The new health value.
      */
-    update(currentValue) {
-        //Sets current value making sure it is between 0 and max
-        this.currentValue = Math.max(0, Math.min(currentValue, this.maxValue));
+    update(newValue) {
+        const targetValue = Math.max(0, Math.min(newValue, this.maxValue));
+
+        //Tweens only if the value actually changed
+        if (this.currentValue !== targetValue) {
+            this.currentValue = targetValue;
+
+            timer.tween(
+                this,
+                { displayValue: targetValue },
+                0.5,
+                Easing.linear
+            );
+        }
     }
 
     /**
@@ -48,7 +66,7 @@ export default class HealthBar {
      */
     render(context) {
         //Calculates the percentage bar is currently filled
-        const percentage = this.currentValue / this.maxValue;
+        const percentage = this.displayValue / this.maxValue;
         const fillWidth = this.dimensions.x * percentage;
 
         context.save();
