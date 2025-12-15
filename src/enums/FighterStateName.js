@@ -5,6 +5,7 @@ const FighterStateName = {
     Falling: "falling",
     Dying: "dying",
     Blocking: "blocking",
+    TakingDamage: "takingDamage",
     Attacking: "attacking",
     Special1: "special1",
 };
