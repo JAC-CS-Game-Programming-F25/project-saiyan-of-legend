@@ -53,6 +53,12 @@
             "loop": true
         },
         {
+            "name": "punch",
+            "path": "./assets/sounds/punch.mp3",
+            "size": 4,
+            "volume": 1
+        },
+        {
             "name": "hit",
             "path": "./assets/sounds/hit.mp3",
             "size": 4,
