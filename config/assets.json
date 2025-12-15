@@ -53,6 +53,12 @@
             "loop": true
         },
         {
+            "name": "jump",
+            "path": "./assets/sounds/jump.mp3",
+            "size": 4,
+            "volume": 0.8
+        },
+        {
             "name": "punch",
             "path": "./assets/sounds/punch.mp3",
             "size": 4,
@@ -80,7 +86,7 @@
             "name": "final_flash",
             "path": "./assets/sounds/final_flash.mp3",
             "size": 1,
-            "volume": 0.4
+            "volume": 0.8
         }
     ]
 }

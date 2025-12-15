@@ -1,7 +1,8 @@
 import { FighterConfig } from "../../../config/FighterConfig.js";
 import Fighter from "../../entities/Fighter.js";
 import FighterStateName from "../../enums/FighterStateName.js";
-import { input } from "../../globals.js";
+import SoundName from "../../enums/SoundName.js";
+import { input, sounds } from "../../globals.js";
 import FighterState from "./FighterState.js";
 
 export default class FighterJumpingState extends FighterState {
@@ -18,6 +19,8 @@ export default class FighterJumpingState extends FighterState {
      * Called when entering the jumping state.
      */
     enter() {
+        sounds.play(SoundName.Jump);
+
         this.fighter.velocity.y = FighterConfig.jumpPower;
         this.fighter.currentAnimation = this.fighter.animations.jump;
         this.fighter.currentAnimation.refresh();
