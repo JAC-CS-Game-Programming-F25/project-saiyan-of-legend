@@ -18,6 +18,7 @@ import Tile from "../services/Tile.js";
 import FighterBlockingState from "../states/fighter/FighterBlockingState.js";
 import FighterSpecial1State from "../states/fighter/FighterSpecial1State.js";
 import MoveFactory from "../services/MoveFactory.js";
+import FighterTakingDamageState from "../states/fighter/FighterTakingDamageState.js";
 
 export default class Fighter extends Entity {
     static MAX_HEALTH = 100;
@@ -107,6 +108,10 @@ export default class Fighter extends Entity {
             new FighterBlockingState(this)
         );
         this.stateMachine.add(
+            FighterStateName.TakingDamage,
+            new FighterTakingDamageState(this)
+        );
+        this.stateMachine.add(
             FighterStateName.Attacking,
             new FighterAttackingState(this)
         );
@@ -132,6 +137,7 @@ export default class Fighter extends Entity {
             fall: new Animation(this.sprites.fall, 0.5, 1),
             death: new Animation(this.sprites.death, 0.25, 1),
             block: new Animation(this.sprites.block, 0.1, 1),
+            damage: new Animation(this.sprites.damage, 0.2, 1),
             attack: new Animation(this.sprites.attack, 0.1, 1),
             special1: new Animation(this.sprites.special1, 0.5, 1),
         };
@@ -186,6 +192,11 @@ export default class Fighter extends Entity {
 
             //Update health
             this.health = Math.max(0, this.health - damage);
+
+            //If the fighter is not blocking and is not dead, change state to taking damage
+            if (!this.isBlocking && this.health > 0) {
+                this.stateMachine.change(FighterStateName.TakingDamage);
+            }
 
             //If health is 0 then die
             if (this.health === 0) {
