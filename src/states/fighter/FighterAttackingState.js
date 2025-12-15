@@ -18,7 +18,7 @@ export default class FighterAttackingState extends FighterState {
      * Called when entering the attacking state.
      */
     enter() {
-        sounds.play(SoundName.Hit);
+        sounds.play(SoundName.Punch);
 
         this.fighter.currentMove = this.fighter.moves.punch;
 
