@@ -166,7 +166,7 @@ All fonts are free and from Google Fonts.
 
 ### 🔊 Sounds
 
-Sounds will be taken from 101soundboards.com for the effects and background music.
+Sounds will be taken from 101soundboards.com for the effects and background music and are from the Dragon Ball Z Anime Dub.
 
 ## 📚 References
 

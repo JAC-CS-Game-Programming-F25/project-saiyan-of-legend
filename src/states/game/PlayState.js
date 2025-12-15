@@ -4,6 +4,7 @@ import {
 } from "../../../config/SpriteConfig.js";
 import State from "../../../lib/State.js";
 import Fighter from "../../entities/Fighter.js";
+import FighterStateName from "../../enums/FighterStateName.js";
 import GameStateName from "../../enums/GameStateName.js";
 import ImageName from "../../enums/ImageName.js";
 import SoundName from "../../enums/SoundName.js";
@@ -240,6 +241,13 @@ export default class PlayState extends State {
         //Deals damage to the victim
         victim.receiveDamage(attacker.currentMove.damage);
 
+        //Checks if the victim is blocking and plays the hit sound
+        if (
+            victim.stateMachine.currentState.name === FighterStateName.Blocking
+        ) {
+            sounds.play(SoundName.Hit);
+        }
+
         //Waits a bit before allowing another hit
         timer.addTask(
             () => {},
@@ -268,7 +276,7 @@ export default class PlayState extends State {
                 ? sounds.play(SoundName.VegetaWin)
                 : sounds.play(SoundName.GokuWin);
 
-            //Waits 2 seconds before transitioning to the victory state
+            //Waits 3 seconds before transitioning to the victory state
             timer.addTask(
                 () => {},
                 0,
