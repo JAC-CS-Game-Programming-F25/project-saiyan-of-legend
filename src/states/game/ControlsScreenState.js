@@ -33,6 +33,9 @@ export default class ControlsScreenState extends State {
      * Called when the controls screen state is entered.
      */
     enter() {
+        //Plays the main theme
+        sounds.play(SoundName.MainTheme);
+
         //Saves the controls screen state
         GameManager.saveControlsScreen();
     }

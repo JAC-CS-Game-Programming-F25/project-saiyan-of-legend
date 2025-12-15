@@ -133,7 +133,7 @@ export default class Fighter extends Entity {
             death: new Animation(this.sprites.death, 0.25, 1),
             block: new Animation(this.sprites.block, 0.1, 1),
             attack: new Animation(this.sprites.attack, 0.1, 1),
-            special1: new Animation(this.sprites.special1, 0.3, 1),
+            special1: new Animation(this.sprites.special1, 0.5, 1),
         };
     }
 

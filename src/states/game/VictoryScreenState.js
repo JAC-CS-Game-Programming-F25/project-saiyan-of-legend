@@ -20,6 +20,10 @@ export default class VictoryScreenState extends State {
     }
 
     enter(params) {
+        //Plays the main theme
+        sounds.play(SoundName.MainTheme);
+
+        //Sets the params
         this.winnerName = params.winnerName;
         this.player1Wins = params.player1Wins;
         this.player2Wins = params.player2Wins;

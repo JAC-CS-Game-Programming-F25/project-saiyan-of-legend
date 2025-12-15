@@ -60,6 +60,10 @@ export default class PlayState extends State {
         this.isGameOver = false;
     }
 
+    exit() {
+        sounds.pause(SoundName.BattleTheme);
+    }
+
     /**
      * Starts a new game with default positions and full health
      */

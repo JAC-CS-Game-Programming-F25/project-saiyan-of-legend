@@ -1,5 +1,7 @@
 import Fighter from "../../entities/Fighter.js";
 import FighterStateName from "../../enums/FighterStateName.js";
+import SoundName from "../../enums/SoundName.js";
+import { sounds } from "../../globals.js";
 import FighterState from "./FighterState.js";
 
 export default class FighterSpecial1State extends FighterState {
@@ -16,6 +18,11 @@ export default class FighterSpecial1State extends FighterState {
      * Called when entering the special1 state.
      */
     enter() {
+        sounds.play(SoundName.PowerUp);
+        this.fighter.playerNumber === 1
+            ? sounds.play(SoundName.Kamehameha)
+            : sounds.play(SoundName.FinalFlash);
+
         this.fighter.currentMove = this.fighter.moves.beam;
         this.fighter.currentAnimation = this.fighter.animations.special1;
         this.fighter.currentAnimation.refresh();

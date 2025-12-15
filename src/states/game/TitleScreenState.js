@@ -37,7 +37,7 @@ export default class TitleScreenState extends State {
      * Called when the title screen state is exited.
      */
     exit() {
-        //sounds.stop()
+        sounds.pause(SoundName.MainTheme);
     }
 
     /**

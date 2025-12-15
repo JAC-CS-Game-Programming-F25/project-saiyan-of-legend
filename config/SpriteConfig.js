@@ -27,7 +27,6 @@ export const gokuSpriteConfig = {
         { x: 217, y: 445, width: 39, height: 48 },
         { x: 265, y: 445, width: 43, height: 48 },
         { x: 217, y: 445, width: 39, height: 48 },
-        { x: 165, y: 446, width: 46, height: 47 },
         {},
     ],
     special1: [
@@ -35,10 +34,8 @@ export const gokuSpriteConfig = {
         { x: 468, y: 926, width: 49, height: 57 },
         { x: 535, y: 922, width: 44, height: 61 },
         { x: 600, y: 905, width: 63, height: 78 },
-        //{ x: 682, y: 928, width: 23, height: 55 },
         { x: 173, y: 1046, width: 32, height: 51 },
         { x: 215, y: 1037, width: 64, height: 61 },
-        // { x: 353, y: 1047, width: 38, height: 51 },
         { x: 412, y: 1006, width: 419, height: 128 },
         {},
     ],
